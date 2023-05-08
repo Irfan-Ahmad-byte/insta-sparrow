@@ -61,12 +61,12 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
 
     return f'{len(followers)} follwoers added.'
     
-competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie']
+competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
 
 with instaloader.Instaloader() as L:
     L.load_session_from_file(username, session)
     try:
-        profile = instaloader.Profile.from_username(L.context, competitors[-1])
+        profile = instaloader.Profile.from_username(L.context, competitors[0])
         response = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
         print(response)
     except Exception as e:
