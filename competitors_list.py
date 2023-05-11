@@ -42,14 +42,14 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
                 followers_iterator = islice(followers_iterator, start_index, max_followers)
 
             for follower in followers_iterator:
-                with open(file_name, 'a') as fl:
-                    writer = csv.writer(fl)
-                    writer.writerow([follower.username])
-                followers.append([follower.username])
+                try:
+                    followers.append([follower.username])
+                except:
+                    return followers
                 # Add a delay between requests to avoid rate limits
                 #time.sleep(1)
 
-            return f'{len(followers)} follwoers added.'
+            return followers
         except instaloader.exceptions.QueryReturnedBadRequestException:
             retries += 1
             if retries < max_retries:
@@ -57,20 +57,27 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
                 time.sleep(delay_between_retries)
             else:
                 print("Max retries reached. Aborting.")
-                return Exception
+                return followers
 
-    return f'{len(followers)} follwoers added.'
+    return followers
     
-competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
+competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedevents', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
 
+followers = []
 with instaloader.Instaloader() as L:
     L.load_session_from_file(username, session)
     try:
-        profile = instaloader.Profile.from_username(L.context, competitors[0])
-        response = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
-        print(response)
+        profile = instaloader.Profile.from_username(L.context, competitors[6])
+        followers = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
     except Exception as e:
         print(e)
-    
-    
-    
+
+if len(followers)>0:
+    with open(file_name, 'a') as fl:
+        writer = csv.writer(fl)
+        writer.writerows(followers)
+print(f'{len(followers)} follwoers added.')
+
+
+
+
