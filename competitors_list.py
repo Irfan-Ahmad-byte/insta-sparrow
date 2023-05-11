@@ -18,7 +18,11 @@ pass3 = 'levajim@928'
 u4 = 'Knightkingdeliverysw'
 pass4 = 'AuCl3AR9('
 
-session = f'session-{u4}'
+u5 = 'devirfan.insta'
+pass5 = 'IL@tmys@lf1@insta'
+
+username= u5
+session = f'session-{username}'
 
 # Get instance
 #L = instaloader.Instaloader()
@@ -65,7 +69,7 @@ competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedevents', 'welit_
 
 followers = []
 with instaloader.Instaloader() as L:
-    L.load_session_from_file(u4, session)
+    L.load_session_from_file(username, session)
     #L.login(u1, pass1)        # (login)
     try:
         profile = instaloader.Profile.from_username(L.context, competitors[3])
