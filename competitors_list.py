@@ -18,7 +18,7 @@ pass3 = 'levajim@928'
 username = 'Knightkingdeliverysw'
 password = 'AuCl3AR9('
 
-session = f'session-{u2}'
+session = f'session-{u1}'
 
 # Get instance
 #L = instaloader.Instaloader()
@@ -65,7 +65,7 @@ competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedevents', 'welit_
 
 followers = []
 with instaloader.Instaloader() as L:
-    L.load_session_from_file(username, session)
+    L.load_session_from_file(u1, session)
     try:
         profile = instaloader.Profile.from_username(L.context, competitors[6])
         followers = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
