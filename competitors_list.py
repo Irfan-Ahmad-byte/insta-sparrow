@@ -65,9 +65,10 @@ competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedevents', 'welit_
 
 followers = []
 with instaloader.Instaloader() as L:
-    L.load_session_from_file(u1, session)
+    #L.load_session_from_file(u1, session)
+    L.login(u1, pass1)        # (login)
     try:
-        profile = instaloader.Profile.from_username(L.context, competitors[6])
+        profile = instaloader.Profile.from_username(L.context, competitors[3])
         followers = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
     except Exception as e:
         print(e)
