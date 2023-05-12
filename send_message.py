@@ -1,4 +1,4 @@
-from instagram_bot_dm import instadm
+import instadm
 
 import csv
 
