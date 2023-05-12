@@ -22,7 +22,7 @@ u5 = 'devirfan.insta'
 pass5 = 'IL@tmys@lf1@insta'
 
 username= u4
-session = f'session-{username}'
+session = f'session-knightkingdeliverysw'
 
 # Get instance
 #L = instaloader.Instaloader()
@@ -65,7 +65,7 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
 
     return followers
     
-competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedevents', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
+competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
 
 followers = []
 with instaloader.Instaloader() as L:
