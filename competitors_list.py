@@ -21,8 +21,8 @@ pass4 = 'AuCl3AR9(@'
 u5 = 'devirfan.insta'
 pass5 = 'IL@tmys@lf1@insta'
 
-username= u4
-session = f'session-knightkingdeliverysw'
+username= u5
+session = f'session-{username}'
 
 # Get instance
 #L = instaloader.Instaloader()
@@ -49,6 +49,11 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
                 try:
                     followers.append([follower.username])
                 except:
+                    try:
+                        instaloader.save("resume_information.json", followers_iterator.freeze())
+                    except Exception as e:
+                        print(e)
+                        return followers
                     return followers
                 # Add a delay between requests to avoid rate limits
                 #time.sleep(1)
