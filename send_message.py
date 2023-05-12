@@ -1,4 +1,4 @@
-from instagram-bot-dm import instadm
+from instagram_bot_dm import instadm
 
 import csv
 
@@ -14,8 +14,11 @@ pass2 = '@Computer1122'
 u3 = 'levajim928'
 pass3 = 'levajim@928'
 
-u4 = 'Knightkingdeliverysw'
-pass4 = 'AuCl3AR9('
+u4 = 'knightkingdeliverysw'
+pass4 = 'AuCl3AR9(@'
+
+u5 = 'devirfan.insta'
+pass5 = 'IL@tmys@lf1@insta'
 
 session = f'session-{u4}'
 
@@ -40,7 +43,7 @@ def send_message(group=False):
 	
 	if group:
 	        # Send message
-	        insta.sendGroupMessage(users=[u2, u1], message='Hey! this is a test message sent to a group of users by your developer.')
+	        insta.sendGroupMessage(users=[u2, u1, u5], message='Hey! this is a test message sent to a group of users by your developer.')
 
 
 if __name__ == '__main__':
