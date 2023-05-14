@@ -21,7 +21,7 @@ pass4 = 'AuCl3AR9(@'
 u5 = 'devirfan.insta'
 pass5 = 'IL@tmys@lf1@insta'
 
-username= u4
+username= u1
 session = f'session-{username}'
 
 # Get instance
@@ -78,10 +78,8 @@ with instaloader.Instaloader() as L:
     #L.login(u1, pass1)        # (login)
     try:
         profile = instaloader.Profile.from_username(L.context, competitors[-2])
-        #followers = get_followers_with_retry(profile, start_index=0, max_followers=None, max_retries=3, delay_between_retries=60*20)
-        followers_iterator = profile.get_followers()
-        for fl in followers_iterator:
-            followers.append([fl.username])
+        followers = get_followers_with_retry(profile, start_index=2500, max_followers=1000, max_retries=3, delay_between_retries=60*20)
+        
     except:
         ...
 
