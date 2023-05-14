@@ -78,7 +78,7 @@ with instaloader.Instaloader() as L:
     #L.login(u1, pass1)        # (login)
     try:
         profile = instaloader.Profile.from_username(L.context, competitors[-2])
-        followers = get_followers_with_retry(profile, start_index=3500, max_followers=1000, max_retries=3, delay_between_retries=60*20)
+        followers = get_followers_with_retry(profile, start_index=5500, max_followers=1000, max_retries=3, delay_between_retries=60*20)
         
     except:
         ...
