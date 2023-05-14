@@ -86,22 +86,20 @@ class InstagramBot:
 
 if __name__ == "__main__":
     u5 = 'devirfan.insta'
-    pass5 = 'IL@tmys@lf1@insta'
 
     u1 = 'knightkingdelivery_dc'
     pass1= 'AuCl3AR9(('
 
     u2 = 'computertechservice1'
-    pass2 = '@Computer1122'
 
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
 
-    username = u5
-    password = pass5
+    username = u4
+    password = pass4
 
     # Set the list of usernames to send messages to
-    usernames = [u1, u2, u4]
+    usernames = [u1, u2, u5]
 
     # Set the message to send
     message = "This is a test message."
