@@ -1,7 +1,7 @@
 import time
 import random
 import selenium
-from webdrivermanager.chrome import ChromeDriverManager
+
 
 class InstagramBot:
 
@@ -9,9 +9,6 @@ class InstagramBot:
         self.username = username
         self.password = password
         
-        driver_manager = ChromeDriverManager()
-        driver_manager.install()
-
         # Create a new instance of the selenium.webdriver.Chrome() class
         # Create a new instance of the ChromeOptions() class
         chrome_options = selenium.webdriver.ChromeOptions()
