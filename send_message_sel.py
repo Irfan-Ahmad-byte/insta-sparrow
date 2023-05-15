@@ -17,9 +17,9 @@ class InstagramBot:
         chrome_options = selenium.webdriver.ChromeOptions()
 
         # Set the headless flag
-        chrome_options.add_argument('--headless')
+        #chrome_options.add_argument('--headless')
 
-        self.driver = selenium.webdriver.Chrome(options=chrome_options)
+        self.driver = selenium.webdriver.Remote(command_executor='http://localhost:4444/', options=chrome_options)
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
@@ -95,8 +95,8 @@ if __name__ == "__main__":
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
 
-    username = u4
-    password = pass4
+    username = u5
+    password = 'IL@tmys@lf1@insta'
 
     # Set the list of usernames to send messages to
     usernames = [u1, u2, u5]
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     # Set the message to send
     message = "This is a test message."
 
-    bot = InstagramBot(username, password)
+    bot = InstagramBot(usernames, password)
     bot.login()
     bot.send_message(usernames, "This is a test message sent through your bot.")
     bot.close()
