@@ -16,13 +16,15 @@ class InstagramBot:
         chrome_options = webdriver.ChromeOptions()
 
         # Set the headless flag
-        #chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-setuid-sandbox')
         
-        options = uc.ChromeOptions()
-        options.arguments.extend(["--no-sandbox", "--disable-setuid-sandbox"])
+        #options = uc.ChromeOptions()
+        #options.arguments.extend(["--no-sandbox", "--disable-setuid-sandbox"])
 
-        #self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
-        self.driver = uc.Chrome(options)
+        self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
+        #self.driver = uc.Chrome(options)
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
