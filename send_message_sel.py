@@ -31,10 +31,12 @@ class InstagramBot:
         time.sleep(random.randint(10, 60))
         username_field = self.driver.find_element(By.NAME, "username")
         password_field = self.driver.find_element(By.NAME, "password")
-        username_field.send_keys(self.username)
-        time.sleep(random.randint(10, 60))
-        password_field.send_keys(self.password)
-        time.sleep(random.randint(10, 60))
+        for k in self.username:
+            username_field.send_keys(k)
+        time.sleep(random.randint(2, 5))
+        for p in self.password:
+            password_field.send_keys(p)
+        time.sleep(random.randint(2, 6))
         eles = self.driver.find_elements(By.TAG_NAME, "button")
         for ele in eles:
             if ele.text == 'Log in':
@@ -76,7 +78,8 @@ class InstagramBot:
         if isinstance(usernames, list):
             for username in usernames:
                 time.sleep(random.randint(5, 10))
-                self.driver.find_element(By.NAME, "queryBox").send_keys(username)
+                for k in username:
+                    self.driver.find_element(By.NAME, "queryBox").send_keys(k)
                 time.sleep(random.randint(5, 10))
                 self.driver.find_element(By.XPATH, "//div[text()='%s']" % username).click()
         else:
