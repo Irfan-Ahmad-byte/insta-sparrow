@@ -17,7 +17,7 @@ class InstagramBot:
         # Set the headless flag
         #chrome_options.add_argument('--headless')
 
-        self.driver = webdriver.Remote(command_executor='http://localhost:4444/', options=chrome_options)
+        self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
