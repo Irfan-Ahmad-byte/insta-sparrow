@@ -3,6 +3,7 @@ import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+import undetected_chromedriver as uc
 
 class InstagramBot:
 
@@ -17,7 +18,8 @@ class InstagramBot:
         # Set the headless flag
         #chrome_options.add_argument('--headless')
 
-        self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
+        #self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
+        self.driver = uc.Chrome()
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
@@ -99,8 +101,8 @@ if __name__ == "__main__":
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
 
-    username = u5
-    password = 'IL@tmys@lf1@insta'
+    username = u4
+    password = pass4
 
     # Set the list of usernames to send messages to
     usernames = [u1, u2, u5]
