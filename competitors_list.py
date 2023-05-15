@@ -2,6 +2,7 @@ import time
 import instaloader
 from itertools import islice
 import csv
+import random
 
 
 file_name = 'followers_insta.csv'
@@ -72,13 +73,14 @@ def get_followers_with_retry(profile, start_index=0, max_followers=400, max_retr
     
 competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
 
+
 followers = []
 with instaloader.Instaloader() as L:
     L.load_session_from_file(username, session)
     #L.login(u1, pass1)        # (login)
     try:
         profile = instaloader.Profile.from_username(L.context, competitors[-2])
-        followers = get_followers_with_retry(profile, start_index=5500, max_followers=1000, max_retries=3, delay_between_retries=60*20)
+        followers = get_followers_with_retry(profile, start_index=6500, max_followers=1000, max_retries=3, delay_between_retries=60*20)
         
     except:
         ...
@@ -87,7 +89,10 @@ if len(followers)>0:
     with open(file_name, 'a') as fl:
         writer = csv.writer(fl)
         writer.writerows(followers)
+
 print(f'{len(followers)} follwoers added.')
+    
+time.sleep(60*10+random.uniform(10, 50))
 
 
 
