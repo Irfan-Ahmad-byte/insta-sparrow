@@ -28,7 +28,11 @@ class InstagramBot:
         time.sleep(random.randint(10, 60))
         password_field.send_keys(self.password)
         time.sleep(random.randint(10, 60))
-        self.driver.find_element(By.XPATH, "//button[text()='Log in']").click()
+        eles = self.driver.find_elements(By.TAG_NAME, "button")
+        for ele in eles:
+            if ele.text == 'Log in':
+                ele.click()
+                break
 
         try:
             verification_code_field = self.driver.find_element(By.NAME, "verificationCode")
@@ -104,7 +108,7 @@ if __name__ == "__main__":
     # Set the message to send
     message = "This is a test message."
 
-    bot = InstagramBot(usernames, password)
+    bot = InstagramBot(username, password)
     bot.login()
     bot.send_message(usernames, "This is a test message sent through your bot.")
     bot.close()
