@@ -13,8 +13,6 @@ pass1= 'AuCl3AR9(('
 u2 = 'computertechservice1'
 pass2 = '@Computer1122'
 
-u3 = 'levajim928'
-pass3 = 'levajim@928'
 
 u4 = 'knightkingdeliverysw'
 pass4 = 'AuCl3AR9(@'
@@ -22,7 +20,7 @@ pass4 = 'AuCl3AR9(@'
 u5 = 'devirfan.insta'
 pass5 = 'IL@tmys@lf1@insta'
 
-username= u4
+username= u2
 session = f'session-{username}'
 
 # Get instance

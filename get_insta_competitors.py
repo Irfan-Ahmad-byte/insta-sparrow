@@ -54,11 +54,10 @@ def write_followers_to_csv(followers):
 
 # Define user credentials
 user_credentials = {
-    'knightkingdelivery_dc': '***YOUR_SECRET***',
-    'computertechservice1': '***YOUR_SECRET***',
-    'levajim928': '***YOUR_SECRET***',
-    'knightkingdeliverysw': '***YOUR_SECRET***',
-    'devirfan.insta': '***YOUR_SECRET***',
+    'knightkingdelivery_dc': 'AuCl3AR9((',
+    'computertechservice1': '@Computer1122',
+    'knightkingdeliverysw': 'AuCl3AR9(@',
+    'devirfan.insta': 'IL@tmys@lf1@insta',
 }
 
 # Define competitors
@@ -72,7 +71,7 @@ while True:
         break
 
     # Switch between users for each iteration
-    username = 'computertechservice1'
+    username = 'knightkingdeliverysw'
     password = user_credentials[username]
     session = os.path.join('/app', 'data', f'session-{username}')
 
