@@ -99,8 +99,8 @@ if __name__ == "__main__":
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
 
-    username = u5
-    password = 'IL@tmys@lf1@insta'
+    username = u4
+    password = pass4
 
     # Set the list of usernames to send messages to
     usernames = [u1, u2, u5]
