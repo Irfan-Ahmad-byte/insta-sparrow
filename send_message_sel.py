@@ -1,6 +1,7 @@
 import time
 import random
-import selenium
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
 class InstagramBot:
@@ -11,36 +12,36 @@ class InstagramBot:
         
         # Create a new instance of the selenium.webdriver.Chrome() class
         # Create a new instance of the ChromeOptions() class
-        chrome_options = selenium.webdriver.ChromeOptions()
+        chrome_options = webdriver.ChromeOptions()
 
         # Set the headless flag
         #chrome_options.add_argument('--headless')
 
-        self.driver = selenium.webdriver.Remote(command_executor='http://localhost:4444/', options=chrome_options)
+        self.driver = webdriver.Remote(command_executor='http://localhost:4444/', options=chrome_options)
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(random.randint(10, 60))
-        username_field = self.driver.find_element_by_name("username")
-        password_field = self.driver.find_element_by_name("password")
+        username_field = self.driver.find_element(By.NAME, "username")
+        password_field = self.driver.find_element(By.NAME, "password")
         username_field.send_keys(self.username)
         time.sleep(random.randint(10, 60))
         password_field.send_keys(self.password)
         time.sleep(random.randint(10, 60))
-        self.driver.find_element_by_text("Log in").click()
+        self.driver.find_element(By.XPATH, "//button[text()='Log in']").click()
 
         try:
-            verification_code_field = self.driver.find_element_by_name("verificationCode")
+            verification_code_field = self.driver.find_element(By.NAME, "verificationCode")
             verification_code = input("Enter the verification code: ")
             verification_code_field.send_keys(verification_code)
             time.sleep(random.randint(10, 60))
-            self.driver.find_element_by_text("Confirm").click()
+            self.driver.find_element(By.XPATh, "//div[text()='Confirm']").click()
         except:
             print("Verification code not required.")
         time.sleep(random.randint(10, 60))
         try:
-            notification_popup = self.driver.find_element_by_xpath("//div[@role='dialog']")
-            self.driver.find_element_by_text("Not Now").click()
+            notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+            self.driver.find_element(By.XPATH, "//div[text()='Not Now']").click()
         except:
             print("Notification popup not present.")
             
@@ -59,23 +60,25 @@ class InstagramBot:
         #chrome_options.add_argument('--session-id=%s' % session_id)
 
     def send_message(self, usernames, message):
+        self.driver.get("https://www.instagram.com/direct/new/?hl=en")
+        time.sleep(60)
         if isinstance(usernames, list):
             for username in usernames:
                 time.sleep(random.randint(5, 10))
-                self.driver.find_element_by_name("queryBox").send_keys(username)
+                self.driver.find_element(By.NAME, "queryBox").send_keys(username)
                 time.sleep(random.randint(5, 10))
-                self.driver.find_element_by_xpath("//div[text()='%s']" % username).click()
+                self.driver.find_element(By.XPATH, "//div[text()='%s']" % username).click()
         else:
-            self.driver.find_element_by_name("queryBox").send_keys(usernames)
+            self.driver.find_element(By.NAME, "queryBox").send_keys(usernames)
             time.sleep(random.randint(5, 10))
-            self.driver.find_element_by_xpath("//div[text()='%s']" % usernames).click()
+            self.driver.find_element(By.XPATH, "//div[text()='%s']" % usernames).click()
         time.sleep(random.randint(5, 10))
-        self.driver.find_element_by_text("Next").click()
+        self.driver.find_element(By.XPATH, "//div[text()='Next']").click()
         time.sleep(random.randint(10, 60))
-        message_area = self.driver.find_element_by_xpath("//textarea[@placeholder='Message...']")
+        message_area = self.driver.find_element(By.XPATH, "//textarea[@placeholder='Message...']")
         message_area.send_keys(message)
         time.sleep(random.uniform(1,2))
-        self.driver.find_element_by_text("Send").click()
+        self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
 
     def close(self):
         self.driver.quit()
