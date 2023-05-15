@@ -16,7 +16,7 @@ class InstagramBot:
         chrome_options = webdriver.ChromeOptions()
 
         # Set the headless flag
-        chrome_options.add_argument('--headless')
+        #chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-setuid-sandbox')
         
