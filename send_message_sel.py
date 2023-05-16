@@ -2,6 +2,7 @@ import time
 import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 import undetected_chromedriver as uc
 
@@ -27,7 +28,7 @@ class InstagramBot:
         #self.driver = uc.Chrome(options)
 
     def login(self):
-        self.driver.get("https://www.instagram.com/direct/new/?hl=en")
+        self.driver.get("https://www.instagram.com/")
         time.sleep(random.randint(10, 60))
         username_field = self.driver.find_element(By.NAME, "username")
         password_field = self.driver.find_element(By.NAME, "password")
@@ -52,12 +53,6 @@ class InstagramBot:
         except:
             print("Verification code not required.")
         time.sleep(random.randint(10, 60))
-        try:
-            notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            self.driver.find_element(By.XPATH, "//div[text()='Not Now']").click()
-        except:
-            print("Notification popup not present.")
-            
         # Get the session_id
         session_id = self.driver.session_id
 
@@ -75,24 +70,60 @@ class InstagramBot:
     def send_message(self, usernames, message):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(60)
+        try:
+            notification_popup = self.driver.find_element(By.TAG_NAME, "button")
+            for btn in notification_popup:
+                if btn.text == 'Not Now':
+                    btn.click()
+                    break
+        except:
+            print("Notification popup not present.")
+            
+        try:
+            send_msg_btn = self.driver.find_element(By.XPATH, "//div[@role='button']")
+            for btn in send_msg_btn:
+                if btn.text == 'Send message':
+                    btn.click()
+                    break
+        except:
+            print("Notification popup not present.")
+            
+        time.sleep(30)
         if isinstance(usernames, list):
             for username in usernames:
                 time.sleep(random.randint(5, 10))
+                queryBox = self.driver.find_element(By.NAME, "queryBox")
                 for k in username:
-                    self.driver.find_element(By.NAME, "queryBox").send_keys(k)
+                    queryBox.send_keys(k)
                 time.sleep(random.randint(5, 10))
-                self.driver.find_element(By.XPATH, "//div[text()='%s']" % username).click()
+                user_select = self.driver.find_element(By.XPATH, "//div[@role='button']")
+                for btn in user_select:
+                    if btn.text == username:
+                        btn.click()
+                        break
         else:
-            self.driver.find_element(By.NAME, "queryBox").send_keys(usernames)
+            queryBox = self.driver.find_element(By.NAME, "queryBox")
+            queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
-            self.driver.find_element(By.XPATH, "//div[text()='%s']" % usernames).click()
+            user_select = self.driver.find_element(By.XPATH, "//div[@role='button']")
+            for btn in user_select:
+                if btn.text == username:
+                    btn.click()
+                    break
+                        
         time.sleep(random.randint(5, 10))
-        self.driver.find_element(By.XPATH, "//div[text()='Next']").click()
-        time.sleep(random.randint(10, 60))
-        message_area = self.driver.find_element(By.XPATH, "//textarea[@placeholder='Message...']")
+        next_btn = self.driver.find_element(By.XPATH, "//div[@role='button']")
+        for btn in user_select:
+            if btn.text == 'Chat' or btn.text == 'Next':
+                btn.click()
+                break
+                
+        time.sleep(60)
+        message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox']")
         message_area.send_keys(message)
-        time.sleep(random.uniform(1,2))
-        self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
+        message_area.send_keys(Keys.ENTER)
+        #time.sleep(random.uniform(1,2))
+        #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
 
     def close(self):
         self.driver.quit()
