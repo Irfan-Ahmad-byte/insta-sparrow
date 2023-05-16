@@ -83,12 +83,13 @@ class InstagramBot:
         time.sleep(60)
         
         try:
-            send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
-            #send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
-            #for btn in send_msg_btn:
-             #   if btn.text == 'Send message':
-              #      btn.click()
-               #     break
+            #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
+            send_msg_btn_parent = self.driver.find_elements(By.XPATH, "//div[div/span[text()='Your messages']  and div/div/span[text()='Send private photos and messages to a friend or group']]")
+            send_msg_btn = send_msg_btn_parent.find_elements(By.XPATH, ".//div[@role='button']")
+            for btn in send_msg_btn:
+                if btn.text == 'Send message':
+                    btn.click()
+                    break
         except:
             print("send_msg_btn not present.")
             
