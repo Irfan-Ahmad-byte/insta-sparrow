@@ -83,14 +83,14 @@ class InstagramBot:
         time.sleep(60)
         
         try:
-            #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
-            send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
-            for btn in send_msg_btn:
-                if btn.text == 'Send message':
-                    btn.click()
-                    break
+            send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
+            #send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
+            #for btn in send_msg_btn:
+             #   if btn.text == 'Send message':
+              #      btn.click()
+               #     break
         except:
-            print("Notification popup not present.")
+            print("send_msg_btn not present.")
             
         time.sleep(30)
         if isinstance(usernames, list):
