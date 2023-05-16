@@ -145,12 +145,14 @@ if __name__ == "__main__":
 
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
+    
+    u6 = 'gracias1984'
 
     username = u4
     password = pass4
 
     # Set the list of usernames to send messages to
-    usernames = [u1, u2, u5]
+    usernames = [u1, u2, u5, u6]
 
     # Set the message to send
     message = "This is a test message."
