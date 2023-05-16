@@ -20,7 +20,7 @@ pass4 = 'AuCl3AR9(@'
 u5 = 'devirfan.insta'
 pass5 = 'IL@tmys@lf1@insta'
 
-username= u5
+username= u2
 session = f'session-{username}'
 
 # Get instance
@@ -89,8 +89,6 @@ if len(followers)>0:
         writer.writerows(followers)
 
 print(f'{len(followers)} follwoers added.')
-    
-time.sleep(60*10+random.uniform(10, 50))
 
 
 
