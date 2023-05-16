@@ -83,7 +83,8 @@ class InstagramBot:
         time.sleep(60)
         
         try:
-            send_msg_btn = self.driver.find_element(By.XPATH, "//div[@role='button']")
+            #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
+            send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
                     btn.click()
@@ -93,14 +94,14 @@ class InstagramBot:
             
         time.sleep(30)
         if isinstance(usernames, list):
+            user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+            queryBox = user_pop.find_element(By.NAME, "queryBox")
             for username in usernames:
                 time.sleep(random.randint(5, 10))
-                queryBox = self.driver.find_element(By.NAME, "queryBox")
                 for k in username:
                     queryBox.send_keys(k)
                 time.sleep(random.randint(5, 10))
-                user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-                user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if btn.text == username:
                         btn.click()
@@ -110,7 +111,7 @@ class InstagramBot:
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
+            user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
             for btn in user_select:
                 if btn.text == username:
                     btn.click()
@@ -118,7 +119,7 @@ class InstagramBot:
                         
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-        next_btn = user_pop.find_element(By.XPATH, "//div[@role='button']")
+        next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
         for btn in user_select:
             if btn.text == 'Chat' or btn.text == 'Next':
                 btn.click()
