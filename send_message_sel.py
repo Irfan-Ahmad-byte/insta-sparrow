@@ -71,14 +71,17 @@ class InstagramBot:
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(60)
         try:
-            notification_popup = self.driver.find_element(By.TAG_NAME, "button")
-            for btn in notification_popup:
+            notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+            notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
+            for btn in notification_btns:
                 if btn.text == 'Not Now':
                     btn.click()
                     break
         except:
             print("Notification popup not present.")
-            
+        
+        time.sleep(60)
+        
         try:
             send_msg_btn = self.driver.find_element(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
@@ -96,7 +99,8 @@ class InstagramBot:
                 for k in username:
                     queryBox.send_keys(k)
                 time.sleep(random.randint(5, 10))
-                user_select = self.driver.find_element(By.XPATH, "//div[@role='button']")
+                user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+                user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if btn.text == username:
                         btn.click()
@@ -105,14 +109,16 @@ class InstagramBot:
             queryBox = self.driver.find_element(By.NAME, "queryBox")
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
-            user_select = self.driver.find_element(By.XPATH, "//div[@role='button']")
+            user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+            user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
             for btn in user_select:
                 if btn.text == username:
                     btn.click()
                     break
                         
         time.sleep(random.randint(5, 10))
-        next_btn = self.driver.find_element(By.XPATH, "//div[@role='button']")
+        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+        next_btn = user_pop.find_element(By.XPATH, "//div[@role='button']")
         for btn in user_select:
             if btn.text == 'Chat' or btn.text == 'Next':
                 btn.click()
