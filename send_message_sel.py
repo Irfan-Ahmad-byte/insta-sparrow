@@ -3,6 +3,8 @@ import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 import undetected_chromedriver as uc
 
@@ -83,13 +85,23 @@ class InstagramBot:
         time.sleep(60)
         
         try:
+            # First, select the element with the role 'navigation'
+            nav_element = wait.until(EC.presence_of_element_located((By.XPATH, '//div[@role="navigation"]')))
+            
+            # Now, select the next sibling element which should be the parent of 'Send message' button
+            parent = wait.until(EC.presence_of_element_located((By.XPATH, './following-sibling::div')))
+            
+            # Now, select the 'Send message' button within the parent element
+            button = wait.until(EC.presence_of_element_located((By.XPATH, './/div[@role="button" and text()="Send message"]')))
+            button.click()
+            
             #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
-            send_msg_btn_parent = self.driver.find_elements(By.XPATH, "//div[div/span[text()='Your messages']  and div/div/span[text()='Send private photos and messages to a friend or group']]")
-            send_msg_btn = send_msg_btn_parent.find_elements(By.XPATH, ".//div[@role='button']")
-            for btn in send_msg_btn:
-                if btn.text == 'Send message':
-                    btn.click()
-                    break
+            #send_msg_btn_parent = self.driver.find_elements(By.XPATH, "//div[div/span[text()='Your messages']  and div/div/span[text()='Send private photos and messages to a friend or group']]")
+            #send_msg_btn = send_msg_btn_parent.find_element(By.XPATH, "//div[text()='Send message']")
+            #for btn in send_msg_btn:
+             #   if btn.text == 'Send message':
+              #      btn.click()
+               #     break
         except:
             print("send_msg_btn not present.")
             
@@ -161,6 +173,6 @@ if __name__ == "__main__":
 
     bot = InstagramBot(username, password)
     bot.login()
-    bot.send_message(usernames, "This is a test message sent through your bot.")
+    bot.send_message(usernames, "This is a another test message sent through bot.")
     bot.close()
 
