@@ -114,21 +114,21 @@ class InstagramBot:
                 for k in username:
                     queryBox.send_keys(k)
                 time.sleep(1)
-                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-                for btn in user_select:
-                    if btn.text == username:
-                        btn.click()
-                        break
+                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                #for btn in user_select:
+                 #   if btn.text == username:
+                  #      btn.click()
+                   #     break
         else:
             queryBox = self.driver.find_element(By.NAME, "queryBox")
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-            for btn in user_select:
-                if btn.text == username:
-                    btn.click()
-                    break
+            user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+            #for btn in user_select:
+             #   if btn.text == username:
+              #      btn.click()
+               #     break
                         
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
