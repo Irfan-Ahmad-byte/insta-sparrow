@@ -71,7 +71,7 @@ class InstagramBot:
 
     def send_message(self, usernames, message):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
-        time.sleep(60)
+        time.sleep(30)
         try:
             notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
@@ -82,7 +82,7 @@ class InstagramBot:
         except:
             print("Notification popup not present.")
         
-        time.sleep(60)
+        time.sleep(10)
         
         try:
             # First, select the element with the role 'navigation'
@@ -105,7 +105,7 @@ class InstagramBot:
         except:
             print("send_msg_btn not present.")
             
-        time.sleep(30)
+        time.sleep(10)
         if isinstance(usernames, list):
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             queryBox = user_pop.find_element(By.NAME, "queryBox")
@@ -113,7 +113,7 @@ class InstagramBot:
                 time.sleep(random.randint(5, 10))
                 for k in username:
                     queryBox.send_keys(k)
-                time.sleep(random.randint(5, 10))
+                time.sleep(1)
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if btn.text == username:
@@ -138,7 +138,7 @@ class InstagramBot:
                 btn.click()
                 break
                 
-        time.sleep(60)
+        time.sleep(20)
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox']")
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
