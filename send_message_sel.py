@@ -133,7 +133,7 @@ class InstagramBot:
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
         next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-        for btn in user_select:
+        for btn in next_btn:
             if btn.text == 'Chat' or btn.text == 'Next':
                 btn.click()
                 break
