@@ -25,6 +25,13 @@ class InstagramBot:
         
         #options = uc.ChromeOptions()
         #options.arguments.extend(["--no-sandbox", "--disable-setuid-sandbox"])
+                    
+        # Load the session_id from a file
+        with open("session_id.txt", "r") as f:
+            session_id = f.read()
+
+        # Pass the session_id to the ChromeOptions constructor
+        chrome_options.add_argument('--session-id=%s' % session_id)
 
         self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
         #self.driver = uc.Chrome(options)
@@ -61,13 +68,7 @@ class InstagramBot:
         # Save the session_id to a file
         with open("session_id.txt", "w") as f:
             f.write(session_id)
-            
-        # Load the session_id from a file
-        #with open("session_id.txt", "r") as f:
-         #   session_id = f.read()
 
-        # Pass the session_id to the ChromeOptions constructor
-        #chrome_options.add_argument('--session-id=%s' % session_id)
 
     def send_message(self, usernames, message):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
@@ -85,18 +86,6 @@ class InstagramBot:
         time.sleep(10)
         
         try:
-            # First, select the element with the role 'navigation'
-            #nav_element = wait.until(EC.presence_of_element_located((By.XPATH, '//div[@role="navigation"]')))
-            
-            # Now, select the next sibling element which should be the parent of 'Send message' button
-            #parent = wait.until(EC.presence_of_element_located((By.XPATH, './following-sibling::div')))
-            
-            # Now, select the 'Send message' button within the parent element
-            #button = wait.until(EC.presence_of_element_located((By.XPATH, './/div[@role="button" and text()="Send message"]')))
-            #button.click()
-            
-            #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
-            #send_msg_btn_parent = self.driver.find_elements(By.XPATH, "//div[div/span[text()='Your messages']  and div/div/span[text()='Send private photos and messages to a friend or group']]")
             send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
@@ -115,20 +104,13 @@ class InstagramBot:
                     queryBox.send_keys(k)
                 time.sleep(1)
                 user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
-                #for btn in user_select:
-                 #   if btn.text == username:
-                  #      btn.click()
-                   #     break
+
         else:
             queryBox = self.driver.find_element(By.NAME, "queryBox")
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
-            #for btn in user_select:
-             #   if btn.text == username:
-              #      btn.click()
-               #     break
                         
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
@@ -139,7 +121,7 @@ class InstagramBot:
                 break
                 
         time.sleep(20)
-        message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox']")
+        message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
         #time.sleep(random.uniform(1,2))
@@ -172,7 +154,7 @@ if __name__ == "__main__":
     message = "This is a test message."
 
     bot = InstagramBot(username, password)
-    bot.login()
+    #bot.login()
     bot.send_message(usernames, "This is a another test message sent through bot.")
     bot.close()
 
