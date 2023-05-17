@@ -27,11 +27,11 @@ class InstagramBot:
         #options.arguments.extend(["--no-sandbox", "--disable-setuid-sandbox"])
                     
         # Load the session_id from a file
-        with open("session_id.txt", "r") as f:
-            session_id = f.read()
+        #with open("session_id.txt", "r") as f:
+         #   session_id = f.read()
 
         # Pass the session_id to the ChromeOptions constructor
-        chrome_options.add_argument('--session-id=%s' % session_id)
+        #chrome_options.add_argument('--session-id=%s' % session_id)
 
         self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
         #self.driver = uc.Chrome(options)
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     message = "This is a test message."
 
     bot = InstagramBot(username, password)
-    #bot.login()
+    bot.login()
     bot.send_message(usernames, "This is a another test message sent through bot.")
     bot.close()
 
