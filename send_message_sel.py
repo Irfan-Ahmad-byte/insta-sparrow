@@ -86,22 +86,22 @@ class InstagramBot:
         
         try:
             # First, select the element with the role 'navigation'
-            nav_element = wait.until(EC.presence_of_element_located((By.XPATH, '//div[@role="navigation"]')))
+            #nav_element = wait.until(EC.presence_of_element_located((By.XPATH, '//div[@role="navigation"]')))
             
             # Now, select the next sibling element which should be the parent of 'Send message' button
-            parent = wait.until(EC.presence_of_element_located((By.XPATH, './following-sibling::div')))
+            #parent = wait.until(EC.presence_of_element_located((By.XPATH, './following-sibling::div')))
             
             # Now, select the 'Send message' button within the parent element
-            button = wait.until(EC.presence_of_element_located((By.XPATH, './/div[@role="button" and text()="Send message"]')))
-            button.click()
+            #button = wait.until(EC.presence_of_element_located((By.XPATH, './/div[@role="button" and text()="Send message"]')))
+            #button.click()
             
             #send_msg_btn = self.driver.find_element(By.XPATH, '//*[@id="mount_0_0_Lt"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div[2]/div/div/div/div[4]/div').click()
             #send_msg_btn_parent = self.driver.find_elements(By.XPATH, "//div[div/span[text()='Your messages']  and div/div/span[text()='Send private photos and messages to a friend or group']]")
-            #send_msg_btn = send_msg_btn_parent.find_element(By.XPATH, "//div[text()='Send message']")
-            #for btn in send_msg_btn:
-             #   if btn.text == 'Send message':
-              #      btn.click()
-               #     break
+            send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
+            for btn in send_msg_btn:
+                if btn.text == 'Send message':
+                    btn.click()
+                    break
         except:
             print("send_msg_btn not present.")
             
