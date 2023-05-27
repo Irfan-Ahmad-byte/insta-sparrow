@@ -124,6 +124,7 @@ class InstagramBot:
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
+        print('Message has been sent successfully to : ', usernames)
         #time.sleep(random.uniform(1,2))
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
 
