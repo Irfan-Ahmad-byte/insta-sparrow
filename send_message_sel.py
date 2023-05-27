@@ -155,6 +155,6 @@ if __name__ == "__main__":
 
     bot = InstagramBot(username, password)
     bot.login()
-    bot.send_message(usernames, "This is a another test message sent through bot.")
+    bot.send_message(usernames, "This is a another test message sent through bot, before proceeding to live test.")
     bot.close()
 
