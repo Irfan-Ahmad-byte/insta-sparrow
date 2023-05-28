@@ -1,5 +1,8 @@
 import time
 import random
+import csv
+from datetime import datetime
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -124,7 +127,7 @@ class InstagramBot:
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
         print('Message has been sent successfully to : ', usernames)
-        #time.sleep(random.uniform(1,2))
+        time.sleep(random.uniform(2, 3))
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
 
     def close(self):
@@ -132,29 +135,50 @@ class InstagramBot:
 
 
 if __name__ == "__main__":
-    u5 = 'devirfan.insta'
 
-    u1 = 'knightkingdelivery_dc'
-    pass1= 'AuCl3AR9(('
-
-    u2 = 'computertechservice1'
+    # Load the usernames from the file
+    usernames = []
+    with open('followers_insta.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            usernames.append(row['username'])
 
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(@'
     
-    u6 = 'gracias1984'
+    # Set the message to send
+    message = "Knight King Delivery delivers to age verified 21+ adults within a 75 mile radius from our headquarters on 1101 Connecticut Ave NW, Washington DC, 20036. Medical Card not required. Delivery fees are displayed on our website Knightkingdelivery.com, residents outside of Washington DC will pay more than $10 for delivery! Pickup is not an option, we offer same day and preorder delivery only with competitive pricing including these fees. Shop 90+ options for same day delivery @ https://bit.ly/shopkkd23 from 9:00AM to 12:00AM 7 days a week!"
 
     username = u4
     password = pass4
+    
+    target_date = datetime(2023, 5, 30, 11, 0, 0)  # Target date and time
+    
+    while True:
+        
+        bot = InstagramBot(username, password)
+        bot.login()
 
-    # Set the list of usernames to send messages to
-    usernames = [u1, u2, u5, u6]
+        # Select a random subset of usernames to send messages to
+        subset_size = random.randint(2, 3)
+        subset = [random.choice(usernames) for _ in range(subset_size)]
+        
+        # Remove the selected usernames from the list
+        usernames = [user for user in usernames if user not in subset]
 
-    # Set the message to send
-    message = "This is a test message."
+        # Send messages to the selected usernames
+        for user in subset:
+            bot.send_message(user, message)
 
-    bot = InstagramBot(username, password)
-    bot.login()
-    bot.send_message(usernames, "This is a another test message sent through bot, before proceeding to live test.")
-    bot.close()
+        # Exit after sending 2-3 DMs per 
+        current_date = datetime.now()
+        if current_date > target_date:
+            break
+
+        bot.close()
+        
+        interval_between_sets = random.randint(2, 3) * 3600  # Random interval of 2-3 hours between sets
+        # Wait for the random interval before starting the next set
+        time.sleep(interval_between_sets)
+        
 
