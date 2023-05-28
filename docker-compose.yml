@@ -1,12 +1,12 @@
 version: '3'
 services:
-  myapp:
+  myapp-doc:
     build:
       context: .
     restart: unless-stopped
     depends_on:
-      - selenium
-  selenium:
+      - selenium-doc
+  selenium-doc:
     image: selenium/standalone-chrome:4.9.1-20230508
     ports:
       - 4444:4444
