@@ -14,7 +14,7 @@ COPY req.txt .
 RUN pip install --no-cache-dir -r req.txt
 
 # Copy the script and CSV file to the working directory
-COPY script.py .
+COPY get_insta_competitors.py .
 COPY followers_insta.csv .
 
 # Make port 80 available to the world outside this container
