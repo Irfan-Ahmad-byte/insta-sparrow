@@ -14,12 +14,12 @@ COPY req.txt .
 RUN pip install --no-cache-dir -r req.txt
 
 # Copy the script and CSV file to the working directory
-COPY get_insta_competitors.py .
+COPY send_message_sel.py .
 COPY followers_insta.csv .
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
 # Run your script when the container launches
-CMD ["python", "get_insta_competitors.py"]
+CMD ["python", "send_message_sel.py"]
 
