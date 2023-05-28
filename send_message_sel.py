@@ -32,7 +32,7 @@ class InstagramBot:
         # Pass the session_id to the ChromeOptions constructor
         #chrome_options.add_argument('--session-id=%s' % session_id)
 
-        self.driver = webdriver.Remote(command_executor='http://134.209.208.89:4444', options=chrome_options)
+        self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
         #self.driver = uc.Chrome(options)
 
     def login(self):
