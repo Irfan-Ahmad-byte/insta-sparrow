@@ -7,8 +7,15 @@ WORKDIR /app
 # Add the current directory contents into the container at /app
 ADD . /app
 
-# Install any needed packages specified in requirements.txt
+# Copy the requirements.txt file to the working directory
+COPY req.txt .
+
+# Install the Python dependencies
 RUN pip install --no-cache-dir -r req.txt
+
+# Copy the script and CSV file to the working directory
+COPY script.py .
+COPY followers_insta.csv .
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
