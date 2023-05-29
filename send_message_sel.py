@@ -188,12 +188,12 @@ if __name__ == "__main__":
                 return login_re
             print(f'============= [trying to login again. Login attempt: {try_count}] =============')
             start_insta_session()
-        return login_re
+        return bot
         
     while True:
-        login_re = start_insta_session()
+        bot = start_insta_session()
         
-        if login_re=='error':
+        if isinstance(bot, str) and bot=='error':
             print('******************* [ Something has went wrong during login. So, exiting now.] *******************')
             save_file([(usr_nm)  for usr_nm in msg_sent_to], 'msg_sent_users.csv')
             break
