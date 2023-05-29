@@ -41,13 +41,23 @@ class InstagramBot:
     def login(self):
         self.driver.get("https://www.instagram.com/")
         time.sleep(random.randint(10, 60))
-        username_field = self.driver.find_element(By.NAME, "username")
-        password_field = self.driver.find_element(By.NAME, "password")
-        for k in self.username:
-            username_field.send_keys(k)
-        time.sleep(random.randint(2, 5))
-        for p in self.password:
-            password_field.send_keys(p)
+        try:
+            username_field = self.driver.find_element(By.NAME, "username")
+            password_field = self.driver.find_element(By.NAME, "password")
+        except:
+            self.close()
+            return 'error'
+        
+        if username_field and password_field:
+            for k in self.username:
+                username_field.send_keys(k)
+            time.sleep(random.randint(2, 5))
+            for p in self.password:
+                password_field.send_keys(p)
+        else:
+            self.close()
+            return 'error'
+            
         time.sleep(random.randint(2, 6))
         eles = self.driver.find_elements(By.TAG_NAME, "button")
         for ele in eles:
@@ -70,6 +80,8 @@ class InstagramBot:
         # Save the session_id to a file
         with open("session_id.txt", "w") as f:
             f.write(session_id)
+            
+        return 'success'
 
 
     def send_message(self, usernames, message):
@@ -133,6 +145,10 @@ class InstagramBot:
     def close(self):
         self.driver.quit()
 
+def save_file(data, filename):
+    with open(file_name, 'a') as fl:
+        writer = csv.writer(fl)
+        writer.writerows(data)
 
 if __name__ == "__main__":
 
@@ -154,10 +170,33 @@ if __name__ == "__main__":
     
     target_date = datetime(2023, 5, 30, 11, 0, 0)  # Target date and time
     
-    while True:
-        
+    try_count = 1
+    
+    msg_sent_to = []
+    with open('msg_sent_users.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            msg_sent_to.append(row['username'])
+    
+    def start_insta_session():
         bot = InstagramBot(username, password)
-        bot.login()
+        login_re = bot.login()
+        if login_re=='error':
+            time.sleep(random.uniform(1,3)*3600)
+            try_count += 1
+            if try_count>50:
+                return login_re
+            print(f'============= [trying to login again. Login attempt: {try_count}] =============')
+            start_insta_session()
+        return login_re
+        
+    while True:
+        login_re = start_insta_session()
+        
+        if login_re=='error':
+            print('******************* [ Something has went wrong during login. So, exiting now.] *******************')
+            save_file([(usr_nm)  for usr_nm in msg_sent_to], 'msg_sent_users.csv')
+            break
 
         # Select a random subset of usernames to send messages to
         subset_size = random.randint(2, 3)
@@ -168,11 +207,17 @@ if __name__ == "__main__":
 
         # Send messages to the selected usernames
         for user in subset:
-            bot.send_message(user, message)
+            if user not in msg_sent_to:
+                bot.send_message(user, message)
+                msg_sent_to.append(user)
+            else:
+                ...
 
         # Exit after sending 2-3 DMs per 
         current_date = datetime.now()
         if current_date > target_date:
+            save_file([(usr_nm)  for usr_nm in msg_sent_to], 'msg_sent_users.csv')
+            print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
             break
 
         bot.close()
