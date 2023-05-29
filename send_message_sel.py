@@ -182,7 +182,7 @@ if __name__ == "__main__":
         bot = InstagramBot(username, password)
         login_re = bot.login()
         if login_re=='error':
-            time.sleep(random.uniform(1,3)*3600)
+            time.sleep(random.uniform(3,4)*3600)
             try_count += 1
             if try_count>50:
                 return login_re
