@@ -124,7 +124,11 @@ class InstagramBot:
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+            try:
+                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
+                return 
                         
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
@@ -146,7 +150,7 @@ class InstagramBot:
         self.driver.quit()
 
 def save_file(data, filename):
-    with open(file_name, 'a') as fl:
+    with open(filename, 'a') as fl:
         writer = csv.writer(fl)
         writer.writerows(data)
 
@@ -199,7 +203,7 @@ if __name__ == "__main__":
             break
 
         # Select a random subset of usernames to send messages to
-        subset_size = random.randint(2, 3)
+        subset_size = random.randint(8, 14)
         subset = [random.choice(usernames) for _ in range(subset_size)]
         
         # Remove the selected usernames from the list
