@@ -39,7 +39,7 @@ class InstagramBot:
         #self.driver = uc.Chrome(options)
 
     def login(self):
-        self.driver.get("https://www.instagram.com/")
+        self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(random.randint(10, 60))
         try:
             username_field = self.driver.find_element(By.NAME, "username")
