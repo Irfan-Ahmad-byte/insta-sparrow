@@ -132,8 +132,13 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message = self.driver.find_element(By.XPATH, "//div[@role='button']//svg[@aria-label='New message']")
+                        new_message = self.driver.find_element(By.XPATH, "//svg[@aria-label='New message']")
+                        try:
+                            new_message.click()
+                        except:
+                            new_message = new_message.find_element(By.XPATH, "..").find_element(By.XPATH, "..")
                         new_message.click()
+                        
                     queryBox = self.driver.find_element(By.NAME, "queryBox")
                     for k in username:
                         queryBox.send_keys(k)
