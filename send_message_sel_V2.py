@@ -133,10 +133,10 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']//div[@role='button']")
+                        new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']").find_elements(By.XPATH, "//div[@role='button']")
                         
                         try:
-                            new_message_btns.click()
+                            new_message_btns[0].click()
                         except:
                             ...
                     try:
