@@ -88,6 +88,7 @@ class InstagramBot:
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
         print('Message has been sent successfully to:', usernames)
+        save_file([(usernames)], 'msg_sent_users.csv')
         return True
     
     def send_message(self, usernames, message, group=False):
@@ -132,12 +133,10 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message = self.driver.find_element(By.XPATH, "//svg[@aria-label='New message']")
-                        try:
-                            new_message.click()
-                        except:
-                            new_message = new_message.find_element(By.XPATH, "..").find_element(By.XPATH, "..")
-                        new_message.click()
+                        new_message_btns = self.driver.find_elements(By.XPATH, "//div[@role='button']")
+                        for btn in new_message_btns:
+                            if btn.text == 'New message':
+                                btn.click()
                         
                     queryBox = self.driver.find_element(By.NAME, "queryBox")
                     for k in username:
