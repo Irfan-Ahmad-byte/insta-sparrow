@@ -122,8 +122,7 @@ class InstagramBot:
         task_done = False
 
         if isinstance(usernames, list):
-            i = 0
-            for username in usernames:
+            for i, username in enumerate(usernames):
                 time.sleep(random.randint(5, 10))
                 if group:
                     for k in username:
@@ -141,7 +140,6 @@ class InstagramBot:
                     time.sleep(1)
                     user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
                     task_done = send(self, username, message)
-                i+=1
 
         else:
             queryBox.send_keys(usernames)
