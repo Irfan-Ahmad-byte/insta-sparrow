@@ -194,6 +194,10 @@ if __name__ == "__main__":
 
     while True:
         bot = start_insta_session()
+        
+        if len(usernames)<=0:
+            print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
+            break
             
         if isinstance(bot, str) and bot == 'error':
             print('******************* [ Something has gone wrong during login. So, exiting now.] *******************')
@@ -216,14 +220,10 @@ if __name__ == "__main__":
             else:
                 ...
 
-        # Exit after sending 2-3 DMs per
-        current_date = datetime.now()
-        if current_date > target_date:
-            save_file([(usr_nm) for usr_nm in msg_sent_to], 'msg_sent_users.csv')
-            print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
-            break
+        save_file([(usr_nm) for usr_nm in msg_sent_to], 'msg_sent_users.csv')
 
-        interval_between_sets = random.randint(2, 3) * 3600  # Random interval of 2-3 hours between sets
+
+        interval_between_sets = random.randint(1, 2) * 3600  # Random interval of 2-3 hours between sets
         # Wait for the random interval before starting the next set
         time.sleep(interval_between_sets)
 
