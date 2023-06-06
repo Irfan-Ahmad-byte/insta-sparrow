@@ -132,9 +132,10 @@ class InstagramBot:
                     user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
                 else:
                     time.sleep(random.randint(10, 40))
-                    new_message = self.driver.find_element(By.XPATH, "//div[@role='button']//svg[@aria-label='New message']")
-                    new_message.click()
-                    queryBox = user_pop.find_element(By.NAME, "queryBox")
+                    if i>0:
+                        new_message = self.driver.find_element(By.XPATH, "//div[@role='button']//svg[@aria-label='New message']")
+                        new_message.click()
+                    queryBox = self.driver.find_element(By.NAME, "queryBox")
                     for k in username:
                         queryBox.send_keys(k)
                     time.sleep(1)
