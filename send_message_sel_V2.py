@@ -139,7 +139,7 @@ class InstagramBot:
                         queryBox.send_keys(k)
                     time.sleep(1)
                     user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
-                    task_done = send(self, username, message)
+                    task_done = self.send(self, username, message)
 
         else:
             queryBox.send_keys(usernames)
