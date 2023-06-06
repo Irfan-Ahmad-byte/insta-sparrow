@@ -169,7 +169,11 @@ if __name__ == "__main__":
         for row in reader:
             msg_sent_to.append(row['username'])
 
-    def start_insta_session():
+    def start_insta_session(try_count=1):
+        if try_count > 50:
+            print(f"============= [Reached maximum login attempts. Exiting.] =============")
+            return 'error'
+
         try:
             session_id = ""
             with open("session_id.txt", "r") as f:
@@ -180,16 +184,11 @@ if __name__ == "__main__":
             bot = existing_bot
             print("Using existing driver instance.")
         except:
-            bot = start_insta_session()
+            bot = InstagramBot(username, password)
             login_re = bot.login()
             if login_re == 'error':
                 time.sleep(random.uniform(3, 4) * 3600)
-                try_count += 1
-                if try_count > 50:
-                    print(f'============= [trying to login again. Login attempt: {try_count}] =============')
-                    return login_re
-                start_insta_session()
-                
+                return start_insta_session(try_count + 1)
         return bot
 
 
