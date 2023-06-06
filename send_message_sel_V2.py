@@ -135,7 +135,7 @@ class InstagramBot:
                     if i>0:
                         new_message_btns = self.driver.find_elements(By.XPATH, "//div[@role='button']")
                         for btn in new_message_btns:
-                            if btn.text == 'New message':
+                            if btn.find_element(By.XPATH, "//svg[@aria-label='New message']"):
                                 btn.click()
                         
                     queryBox = self.driver.find_element(By.NAME, "queryBox")
