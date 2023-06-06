@@ -184,7 +184,6 @@ if __name__ == "__main__":
             login_re = bot.login()
             if login_re == 'error':
                 time.sleep(random.uniform(3, 4) * 3600)
-                global try_count
                 try_count += 1
                 if try_count > 50:
                     print(f'============= [trying to login again. Login attempt: {try_count}] =============')
