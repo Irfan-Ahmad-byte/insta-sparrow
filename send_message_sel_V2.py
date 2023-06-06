@@ -179,7 +179,7 @@ if __name__ == "__main__":
 
             bot = existing_bot
             print("Using existing driver instance.")
-        except FileNotFoundError:
+        except:
             bot = start_insta_session()
             login_re = bot.login()
             if login_re == 'error':
