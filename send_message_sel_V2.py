@@ -134,9 +134,16 @@ class InstagramBot:
                     time.sleep(random.randint(10, 40))
                     if i>0:
                         new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']//div[@role='button']")
-                        new_message_btns.click()
                         
-                    queryBox = self.driver.find_element(By.NAME, "queryBox")
+                        try:
+                            new_message_btns.click()
+                        except:
+                            ...
+                    try:
+                        queryBox = self.driver.find_element(By.NAME, "queryBox")
+                    except Exception as e:
+                        self.close()
+                        raise e
                     for k in username:
                         queryBox.send_keys(k)
                     time.sleep(1)
