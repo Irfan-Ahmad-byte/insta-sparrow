@@ -133,10 +133,9 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message_btns = self.driver.find_elements(By.XPATH, "//div[@aria-label='Thread list']//div[@role='button']")
+                        new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']//div[@role='button']")
                         for btn in new_message_btns:
-                            if btn.find_element(By.CSS_SELECTOR, "svg[aria-label='New message']"):
-                                btn.click()
+                            btn.click()
                         
                     queryBox = self.driver.find_element(By.NAME, "queryBox")
                     for k in username:
