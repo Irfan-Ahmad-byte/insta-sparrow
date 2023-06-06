@@ -131,8 +131,8 @@ class InstagramBot:
                     time.sleep(1)
                     user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
                 else:
+                    time.sleep(random.randint(10, 40))
                     new_message = self.driver.find_element(By.XPATH, "//div[@role='button']//svg[@aria-label='New message']")
-                    time.sleep(1)
                     new_message.click()
                     queryBox = user_pop.find_element(By.NAME, "queryBox")
                     for k in username:
@@ -228,7 +228,7 @@ if __name__ == "__main__":
         else:
             ...
              
-        subset_size = random.randint(2, 4)
+        subset_size = random.randint(2, 6)
         subset = [random.choice(usernames) for _ in range(subset_size)]
 
         # Remove the selected usernames from the list
@@ -236,11 +236,13 @@ if __name__ == "__main__":
 
         # Send messages to the selected usernames
         for user in subset:
-            if user not in msg_sent_to:
-                bot.send_message(user, message)
-                msg_sent_to.append(user)
+            if user in msg_sent_to:
+                subset.remove(user)
             else:
+                msg_sent_to.append(user)
                 ...
+
+        bot.send_message(subset, message)
 
         save_file([(usr_nm) for usr_nm in msg_sent_to], 'msg_sent_users.csv')
 
