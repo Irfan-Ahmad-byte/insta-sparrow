@@ -196,21 +196,11 @@ if __name__ == "__main__":
             print(f"============= [Reached maximum login attempts. Exiting.] =============")
             return 'error'
 
-        try:
-            session_id = ""
-            with open("session_id.txt", "r") as f:
-                session_id = f.read()
-            existing_bot = InstagramBot(username, password)
-            existing_bot.driver.session_id = session_id
-
-            bot = existing_bot
-            print("Using existing driver instance.")
-        except:
-            bot = InstagramBot(username, password)
-            login_re = bot.login()
-            if login_re == 'error':
-                time.sleep(random.uniform(3, 4) * 3600)
-                return start_insta_session(try_count + 1)
+        bot = InstagramBot(username, password)
+        login_re = bot.login()
+        if login_re == 'error':
+            time.sleep(random.uniform(3, 4) * 3600)
+            return start_insta_session(try_count + 1)
         return bot
 
 
