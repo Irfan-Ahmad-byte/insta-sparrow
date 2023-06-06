@@ -74,8 +74,23 @@ class InstagramBot:
             
         return 'success'
 
-
-    def send_message(self, usernames, message):
+    def send(self, usernames, message):
+        time.sleep(random.randint(5, 10))
+        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+        next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+        for btn in next_btn:
+            if btn.text == 'Chat' or btn.text == 'Next':
+                btn.click()
+                break
+                
+        time.sleep(20)
+        message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
+        message_area.send_keys(message)
+        message_area.send_keys(Keys.ENTER)
+        print('Message has been sent successfully to:', usernames)
+        return True
+    
+    def send_message(self, usernames, message, group=False):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(30)
         try:
@@ -100,18 +115,34 @@ class InstagramBot:
             print("send_msg_btn not present.")
             
         time.sleep(10)
+
+        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+        queryBox = user_pop.find_element(By.NAME, "queryBox")
+        
+        task_done = False
+
         if isinstance(usernames, list):
-            user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            queryBox = user_pop.find_element(By.NAME, "queryBox")
+            i = 0
             for username in usernames:
                 time.sleep(random.randint(5, 10))
-                for k in username:
-                    queryBox.send_keys(k)
-                time.sleep(1)
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                if group:
+                    for k in username:
+                        queryBox.send_keys(k)
+                    time.sleep(1)
+                    user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                else:
+                    new_message = self.driver.find_element(By.XPATH, "//div[@role='button']//svg[@aria-label='New message']")
+                    time.sleep(1)
+                    new_message.click()
+                    queryBox = user_pop.find_element(By.NAME, "queryBox")
+                    for k in username:
+                        queryBox.send_keys(k)
+                    time.sleep(1)
+                    user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                    task_done = send(self, username, message)
+                i+=1
 
         else:
-            queryBox = self.driver.find_element(By.NAME, "queryBox")
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
@@ -119,21 +150,12 @@ class InstagramBot:
                 user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
-                return 
-                        
-        time.sleep(random.randint(5, 10))
-        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-        next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-        for btn in next_btn:
-            if btn.text == 'Chat' or btn.text == 'Next':
-                btn.click()
-                break
+                return
                 
-        time.sleep(20)
-        message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
-        message_area.send_keys(message)
-        message_area.send_keys(Keys.ENTER)
-        print('Message has been sent successfully to:', usernames)
+        if task_done:
+            return
+                        
+        send(self, usernames, message)
         time.sleep(random.uniform(2, 3))
 
     def close(self):
