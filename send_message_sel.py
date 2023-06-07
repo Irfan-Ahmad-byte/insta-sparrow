@@ -1,6 +1,8 @@
 import time
 import random
 import csv
+import signal
+
 from datetime import datetime
 
 from selenium import webdriver
@@ -160,6 +162,16 @@ def save_file(data, filename):
         writer.writerows(data)
 
 if __name__ == "__main__":
+    bot = None
+    
+    def signal_handler(sig, frame):
+        if bot is not None:
+            bot.close()
+        print("Script terminated")
+        exit(0)
+        
+    # Register the signal handler for SIGINT
+    signal.signal(signal.SIGINT, signal_handler)
 
     # Load the usernames from the file
     usernames = []
