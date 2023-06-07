@@ -143,6 +143,10 @@ class InstagramBot:
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
         print('Message has been sent successfully to : ', usernames)
+        try:
+            save_file([(usr_nm)  for usr_nm in usernames], 'msg_sent_users.csv')
+        except:
+            save_file([(usernames)], 'msg_sent_users.csv')
         time.sleep(random.uniform(2, 3))
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
 
@@ -203,7 +207,7 @@ if __name__ == "__main__":
             break
 
         # Select a random subset of usernames to send messages to
-        subset_size = random.randint(2, 4)
+        subset_size = random.randint(3, 6)
         subset = [random.choice(usernames) for _ in range(subset_size)]
         
         # Remove the selected usernames from the list
@@ -212,6 +216,7 @@ if __name__ == "__main__":
         # Send messages to the selected usernames
         for user in subset:
             if user not in msg_sent_to:
+                time.sleep(random.uniform(1, 4))
                 bot.send_message(user, message)
                 msg_sent_to.append(user)
             else:
@@ -220,7 +225,6 @@ if __name__ == "__main__":
         # Exit after sending 2-3 DMs per 
         current_date = datetime.now()
         if current_date > target_date:
-            save_file([(usr_nm)  for usr_nm in msg_sent_to], 'msg_sent_users.csv')
             print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
             break
 
