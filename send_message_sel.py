@@ -37,6 +37,7 @@ class InstagramBot:
 
         self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
         #self.driver = uc.Chrome(options)
+        self.driver.maximize_window()
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")

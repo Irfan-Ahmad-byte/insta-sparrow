@@ -28,6 +28,7 @@ class InstagramBot:
             ...
 
         self.driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
+        self.driver.maximize_window()
 
     def login(self):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
@@ -133,12 +134,17 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']").find_elements(By.XPATH, "//div[@role='button']")
-                        
-                        try:
-                            new_message_btns[1].click()
-                        except:
-                            ...
+                        new_message_btns = self.driver.find_element(By.XPATH, "//div[@aria-label='Thread list']").find_elements(By.TAG_NAME, "div")
+                        for i, btn in enumerate(new_message_btns):
+                            if btn.get_attribute('role')=='button'
+                                if i==1:
+                                    try:
+                                        new_message_btns[1].click()
+                                    except:
+                                        ...
+                                i+=1
+                                    
+                                 
                     try:
                         queryBox = self.driver.find_element(By.NAME, "queryBox")
                     except Exception as e:
