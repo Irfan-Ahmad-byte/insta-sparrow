@@ -199,6 +199,9 @@ if __name__ == "__main__":
         return bot
         
     while True:
+        if len(usernames)<=0:
+            break
+            
         bot = start_insta_session()
         
         if isinstance(bot, str) and bot=='error':
@@ -221,12 +224,6 @@ if __name__ == "__main__":
                 msg_sent_to.append(user)
             else:
                 ...
-
-        # Exit after sending 2-3 DMs per 
-        current_date = datetime.now()
-        if current_date > target_date:
-            print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
-            break
 
         bot.close()
         
