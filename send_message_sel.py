@@ -210,7 +210,7 @@ if __name__ == "__main__":
             break
 
         # Select a random subset of usernames to send messages to
-        subset_size = random.randint(3, 6)
+        subset_size = random.randint(5, 8)
         subset = [random.choice(usernames) for _ in range(subset_size)]
         
         # Remove the selected usernames from the list
@@ -219,7 +219,7 @@ if __name__ == "__main__":
         # Send messages to the selected usernames
         for user in subset:
             if user not in msg_sent_to:
-                time.sleep(random.uniform(1, 4))
+                time.sleep(random.uniform(1, 4)*60)
                 bot.send_message(user, message)
                 msg_sent_to.append(user)
             else:
