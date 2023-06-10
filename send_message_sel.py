@@ -173,13 +173,6 @@ if __name__ == "__main__":
     # Register the signal handler for SIGINT
     signal.signal(signal.SIGINT, signal_handler)
 
-    # Load the usernames from the file
-    usernames = []
-    with open('followers_insta.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            usernames.append(row['username'])
-
     u4 = 'knightkingdeliverysw'
     pass4 = 'AuCl3AR9(('
     
@@ -193,13 +186,8 @@ if __name__ == "__main__":
     
     try_count = 1
     
-    msg_sent_to = []
-    with open('msg_sent_users.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            msg_sent_to.append(row['username'])
-    
     def start_insta_session():
+        global try_count
         bot = InstagramBot(username, password)
         login_re = bot.login()
         if login_re=='error':
@@ -212,6 +200,20 @@ if __name__ == "__main__":
         return bot
         
     while True:
+        # Load the usernames from the file
+        usernames = []
+        with open('followers_insta.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                usernames.append(row['username'])
+        
+        msg_sent_to = []
+        with open('msg_sent_users.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                msg_sent_to.append(row['username'])
+            
+        usernames = [user for user in usernames if user not in msg_sent_to]
         if len(usernames)<=0:
             break
             
@@ -225,9 +227,6 @@ if __name__ == "__main__":
         # Select a random subset of usernames to send messages to
         subset_size = random.randint(5, 8)
         subset = [random.choice(usernames) for _ in range(subset_size)]
-        
-        # Remove the selected usernames from the list
-        usernames = [user for user in usernames if user not in subset]
 
         # Send messages to the selected usernames
         for user in subset:
