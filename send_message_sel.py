@@ -174,7 +174,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
     u4 = 'knightkingdeliverysw'
-    pass4 = 'AuCl3AR9(('
+    pass4 = 'AuCl3AR9(#'
     
     # Set the message to send
     message = "Knight King Delivery delivers to age verified 21+ adults within a 75 mile radius from our headquarters on 1101 Connecticut Ave NW, Washington DC, 20036. Medical Card not required. Delivery fees are displayed on our website Knightkingdelivery.com, residents outside of Washington DC will pay more than $10 for delivery! Pickup is not an option, we offer same day and preorder delivery only with competitive pricing including these fees. Shop 90+ options for same day delivery @ https://bit.ly/shopkkd23 from 9:00AM to 12:00AM 7 days a week!"

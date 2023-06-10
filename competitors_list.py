@@ -12,7 +12,7 @@ min_delay = 1.5 * 24 * 60 * 60  # 1.5 days in seconds
 max_delay = 2.5 * 24 * 60 * 60  # 2.5 days in seconds
 
 u1 = 'knightkingdelivery_dc'
-pass1= 'AuCl3AR9(('
+pass1= 'AuCl3AR9(#'
 
 u2 = 'computertechservice1'
 pass2 = '@Computer1122'
