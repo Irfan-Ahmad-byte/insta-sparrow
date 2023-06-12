@@ -114,7 +114,12 @@ class InstagramBot:
         time.sleep(10)
         if isinstance(usernames, list):
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-            queryBox = user_pop.find_element(By.NAME, "queryBox")
+            try:
+                queryBox = user_pop.find_element(By.NAME, "queryBox")
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
+                return
+                
             for username in usernames:
                 time.sleep(random.randint(5, 10))
                 for k in username:
@@ -123,7 +128,12 @@ class InstagramBot:
                 user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
 
         else:
-            queryBox = self.driver.find_element(By.NAME, "queryBox")
+            try:
+                queryBox = self.driver.find_element(By.NAME, "queryBox")
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
+                return
+                
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
