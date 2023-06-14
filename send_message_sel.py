@@ -217,7 +217,6 @@ if __name__ == "__main__":
             if try_count>50:
                 return login_re
             print(f'============= [trying to login again. Login attempt: {try_count}] =============')
-            bot.close()
             start_insta_session()
         return bot
         
