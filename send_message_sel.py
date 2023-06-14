@@ -125,7 +125,7 @@ class InstagramBot:
                 queryBox = user_pop.find_element(By.NAME, "queryBox")
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
-                return
+                return 'error'
                 
             for username in usernames:
                 time.sleep(random.randint(5, 10))
@@ -139,7 +139,7 @@ class InstagramBot:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
-                return
+                return 'error'
                 
             queryBox.send_keys(usernames)
             time.sleep(random.randint(5, 10))
@@ -148,7 +148,7 @@ class InstagramBot:
                 user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
-                return 
+                return 'error'
                         
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
@@ -169,6 +169,7 @@ class InstagramBot:
             save_file([(usernames)], 'msg_sent_users.csv')
         time.sleep(random.uniform(2, 3))
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
+        return 'success'
 
     def close(self):
         self.driver.quit()
@@ -253,7 +254,9 @@ if __name__ == "__main__":
         for user in subset:
             if user not in msg_sent_to:
                 time.sleep(random.uniform(1, 4)*60)
-                bot.send_message(user, message)
+                sent = bot.send_message(user, message)
+                if sent=='error':
+                    break
                 msg_sent_to.append(user)
             else:
                 ...
