@@ -2,6 +2,7 @@ import time
 import random
 import csv
 import signal
+import instaloader
 
 from datetime import datetime
 
@@ -10,6 +11,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+
+def is_private(username):
+    loader = instaloader.Instaloader()
+    profile = instaloader.Profile.from_username(loader.context, username)
+    return profile.is_private or not profile.followed_by_viewer
 
 
 class InstagramBot:
@@ -197,6 +204,10 @@ if __name__ == "__main__":
     try_count = 1
     
     def start_insta_session():
+        try:
+            bot.close()
+        except:
+            ...
         global try_count
         bot = InstagramBot(username, password)
         login_re = bot.login()
