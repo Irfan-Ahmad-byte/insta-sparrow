@@ -260,7 +260,8 @@ if __name__ == "__main__":
                 msg_sent_to.append(user)
             else:
                 ...
-	try:
+                
+        try:
             bot.close()
         except:
             ...
