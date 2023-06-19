@@ -145,7 +145,11 @@ class InstagramBot:
             time.sleep(20)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']")
+                if not user_select:
+                    user_select = user_pop.find_element(By.XPATH, "//svg[@aria-label='Toggle selection']")
+                    
+                user_select.click()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
