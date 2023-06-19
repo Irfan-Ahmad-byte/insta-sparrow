@@ -115,13 +115,13 @@ with instaloader.Instaloader() as L:
                 break
             followers = get_followers_with_retry(cleaned_followers_iterators, start_index=500*i, max_followers=500, max_retries=3, delay_between_retries=60*20)
         
-        if len(followers)>0:
-            with open(file_name, 'a') as fl:
-                writer = csv.writer(fl)
-                writer.writerows(followers)
+            if len(followers)>0:
+                with open(file_name, 'a') as fl:
+                    writer = csv.writer(fl)
+                    writer.writerows(followers)
 
-        print(f'{len(followers)} follwoers added.')
-    
+                print(f'{len(followers)} follwoers added.')
+            time.sleep(random.uniform(24, 30)*3600+random.uniform(300, 3600))
     except:
         ...
 
