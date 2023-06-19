@@ -253,16 +253,18 @@ if __name__ == "__main__":
         # Send messages to the selected usernames
         for user in subset:
             if user not in msg_sent_to:
-                time.sleep(random.uniform(1, 4)*60)
                 sent = bot.send_message(user, message)
+                time.sleep(random.uniform(1, 3)*60)
                 if sent=='error':
                     break
                 msg_sent_to.append(user)
             else:
                 ...
-
-        bot.close()
-        
+	try:
+            bot.close()
+        except:
+            ...
+            
         interval_between_sets = random.uniform(1,2) * 3600  # Random interval of 2-3 hours between sets
         # Wait for the random interval before starting the next set
         time.sleep(interval_between_sets)
