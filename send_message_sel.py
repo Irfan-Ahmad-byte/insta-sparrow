@@ -135,7 +135,7 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if username in btn.text:
-                        btn.find_elements(By.XPATH, "//svg[@aria-label='Toggle selection']").click()
+                        btn.find_elements(By.TAG_NAME, "svg").click()
                         break
         else:
             try:
@@ -151,7 +151,7 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if usernames in btn.text:
-                        btn.find_elements(By.XPATH, "//svg[@aria-label='Toggle selection']").click()
+                        btn.find_elements(By.TAG_NAME, "svg").click()
                         break
                 
             except:
