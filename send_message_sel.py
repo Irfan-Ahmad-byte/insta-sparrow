@@ -132,11 +132,11 @@ class InstagramBot:
                 for k in username:
                     queryBox.send_keys(k)
                 time.sleep(1)
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']")
-                if not user_select:
-                    user_select = user_pop.find_element(By.XPATH, "//svg[@aria-label='Toggle selection']")
-                    
-                user_select.click()
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                for btn in user_select:
+                    if username in btn.text:
+                        btn.click()
+                        break
         else:
             try:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
@@ -148,11 +148,12 @@ class InstagramBot:
             time.sleep(20)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']")
-                if not user_select:
-                    user_select = user_pop.find_element(By.XPATH, "//svg[@aria-label='Toggle selection']")
-                    
-                user_select.click()
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                for btn in user_select:
+                    if usernames in btn.text:
+                        btn.click()
+                        break
+                
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
