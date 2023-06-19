@@ -132,8 +132,11 @@ class InstagramBot:
                 for k in username:
                     queryBox.send_keys(k)
                 time.sleep(1)
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
-
+                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']")
+                if not user_select:
+                    user_select = user_pop.find_element(By.XPATH, "//svg[@aria-label='Toggle selection']")
+                    
+                user_select.click()
         else:
             try:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
