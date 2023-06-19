@@ -142,7 +142,7 @@ class InstagramBot:
                 return 'error'
                 
             queryBox.send_keys(usernames)
-            time.sleep(random.randint(20))
+            time.sleep(20)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
                 user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
