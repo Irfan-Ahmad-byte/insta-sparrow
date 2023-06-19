@@ -255,8 +255,6 @@ if __name__ == "__main__":
             if user not in msg_sent_to:
                 sent = bot.send_message(user, message)
                 time.sleep(random.uniform(1, 3)*60)
-                if sent=='error':
-                    break
                 msg_sent_to.append(user)
             else:
                 ...
