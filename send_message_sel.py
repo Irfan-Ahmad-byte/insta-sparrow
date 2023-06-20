@@ -262,6 +262,7 @@ if __name__ == "__main__":
         for user in subset:
             if user not in msg_sent_to:
                 sent = bot.send_message(user, message)
+                time.sleep(random.uniform(5, 30))
                 msg_sent_to.append(user)
             else:
                 ...
