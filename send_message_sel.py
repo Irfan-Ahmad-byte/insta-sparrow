@@ -96,7 +96,7 @@ class InstagramBot:
 
     def send_message(self, usernames, message):
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
-        time.sleep(30)
+        time.sleep(random.uniform(7, 15))
         try:
             notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
@@ -107,18 +107,17 @@ class InstagramBot:
         except:
             print("Notification popup not present.")
         
-        time.sleep(10)
         
         try:
             send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
+                    time.sleep(random.uniform(1, 5))
                     btn.click()
                     break
         except:
             print("send_msg_btn not present.")
             
-        time.sleep(10)
         if isinstance(usernames, list):
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
@@ -135,8 +134,13 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if username in btn.text:
-                        btn.click()
-                        break
+                        try:
+                            btn.click()
+                            break
+                        except Exception as e:
+                            print(e)
+                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
         else:
             try:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
@@ -145,28 +149,32 @@ class InstagramBot:
                 return 'error'
                 
             queryBox.send_keys(usernames)
-            time.sleep(20)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
-                    if usernames in btn.text:
+                    try:
+                       time.sleep(random.uniform(8, 15))
                         btn.click()
                         break
+                    except Exception as e:
+                        print(e)
+                        print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                        return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
                         
-        time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
         next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
         for btn in next_btn:
             if btn.text == 'Chat' or btn.text == 'Next':
+                time.sleep(random.randint(5, 10))
                 btn.click()
                 break
                 
-        time.sleep(20)
+        time.sleep(random.uniform(8, 15))
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
@@ -175,7 +183,6 @@ class InstagramBot:
             save_file([(usr_nm)  for usr_nm in usernames], 'msg_sent_users.csv')
         except:
             save_file([(usernames)], 'msg_sent_users.csv')
-        time.sleep(random.uniform(2, 3))
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
         return 'success'
 
@@ -262,8 +269,12 @@ if __name__ == "__main__":
         for user in subset:
             if user not in msg_sent_to:
                 sent = bot.send_message(user, message)
-                time.sleep(random.uniform(5, 30))
-                msg_sent_to.append(user)
+                if sent == 'error':
+                    bot.close()
+                    time.sleep(random.uniform(60, 80)*30)
+                    bot = start_insta_session()
+                else:
+                    msg_sent_to.append(user)
             else:
                 ...
                 
