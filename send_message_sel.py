@@ -95,6 +95,11 @@ class InstagramBot:
 
 
     def send_message(self, usernames, message):
+    
+        user_class = "x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x87ps6o x1lku1pv x1a2a7pz x1dm5mii x16mil14 xiojian x1yutycm x1lliihq x193iq5w xh8yej3"
+        
+        next_btn_class = 'x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w x972fbf xcfux6l x1qhh985 xm0m39n xdl72j9 x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x18d9i69 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 xjyslct x1lq5wgf xgqcy7u x30kzoy x9jhf4c x1ejq31n xd10rxx x1sy0etr x17r0tee x9f619 x9bdzbf x1ypdohk x78zum5 x1i0vuye x1f6kntn xwhw2v2 xl56j7k x17ydfre x1n2onr6 x2b8uid xlyipyv x87ps6o x14atkfc x1d5wrs8 xn3w4p2 x5ib6vp xc73u3c x1tu34mt xzloghq'
+        
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
         time.sleep(random.uniform(7, 15))
         try:
@@ -135,6 +140,7 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if username in btn.text:
+                        time.sleep(random.uniform(8, 15))
                         try:
                             btn.click()
                             break
@@ -142,9 +148,12 @@ class InstagramBot:
                             try:
                                 user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
                             except:
-                                print(e)
-                                print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                                return 'error'
+                                try:
+                                    user_select = user_pop.find_elements(By.CLASS_NAME, user_class)[0].click()
+                                except:
+                                    print(e)
+                                    print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                                    return 'error'
         else:
             try:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
@@ -158,17 +167,20 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if usernames in btn.text:
+                        time.sleep(random.uniform(8, 15))
                         try:
-                            time.sleep(random.uniform(8, 15))
                             btn.click()
                             break
                         except Exception as e:
                             try:
                                 user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
                             except:
-                                print(e)
-                                print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                                return 'error'
+                                try:
+                                    user_select = user_pop.find_elements(By.CLASS_NAME, user_class)[0].click()
+                                except:
+                                    print(e)
+                                    print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                                    return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
@@ -176,11 +188,14 @@ class InstagramBot:
                         
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
         next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-        for btn in next_btn:
-            if btn.text == 'Chat' or btn.text == 'Next':
-                time.sleep(random.randint(5, 10))
-                btn.click()
-                break
+        try:
+            for btn in next_btn:
+                if btn.text == 'Chat' or btn.text == 'Next':
+                    time.sleep(random.randint(5, 10))
+                    btn.click()
+                    break
+        except:
+            user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
                 
         time.sleep(random.uniform(8, 15))
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
