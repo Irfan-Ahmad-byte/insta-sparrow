@@ -154,7 +154,7 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     try:
-                       time.sleep(random.uniform(8, 15))
+                        time.sleep(random.uniform(8, 15))
                         btn.click()
                         break
                     except Exception as e:
