@@ -139,9 +139,12 @@ class InstagramBot:
                             btn.click()
                             break
                         except Exception as e:
-                            print(e)
-                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                            return 'error'
+                            try:
+                                user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
+                            except:
+                                print(e)
+                                print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                                return 'error'
         else:
             try:
                 queryBox = self.driver.find_element(By.NAME, "queryBox")
@@ -159,9 +162,12 @@ class InstagramBot:
                         btn.click()
                         break
                     except Exception as e:
-                        print(e)
-                        print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                        return 'error'
+                        try:
+                            user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
+                        except:
+                            print(e)
+                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
