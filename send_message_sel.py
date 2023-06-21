@@ -157,17 +157,18 @@ class InstagramBot:
             try:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
-                    try:
-                        time.sleep(random.uniform(8, 15))
-                        btn.click()
-                        break
-                    except Exception as e:
+                    if usernames in btn.text:
                         try:
-                            user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
-                        except:
-                            print(e)
-                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                            return 'error'
+                            time.sleep(random.uniform(8, 15))
+                            btn.click()
+                            break
+                        except Exception as e:
+                            try:
+                                user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
+                            except:
+                                print(e)
+                                print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                                return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
