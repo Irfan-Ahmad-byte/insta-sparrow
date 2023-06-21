@@ -160,8 +160,12 @@ class InstagramBot:
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
-                        new_message_btns = self.driver.find_element(By.CLASS_NAME, ).click()
-                                 
+                        try:
+                            new_message_btns = self.driver.find_element(By.CLASS_NAME, new_msg_btn).click()
+                        except:
+                            print(f'/=/=/=/==/=/=/==/==/=/= [new message btn error] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
+                            
                     try:
                         queryBox = self.driver.find_element(By.NAME, "queryBox")
                     except Exception as e:
