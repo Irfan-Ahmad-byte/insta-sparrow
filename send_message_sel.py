@@ -118,6 +118,7 @@ class InstagramBot:
         except:
             print("send_msg_btn not present.")
             
+        time.sleep(20)
         if isinstance(usernames, list):
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
