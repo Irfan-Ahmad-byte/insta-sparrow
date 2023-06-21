@@ -195,7 +195,11 @@ class InstagramBot:
                     btn.click()
                     break
         except:
-            user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+            try:
+                user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
+                return 'error'
                 
         time.sleep(random.uniform(8, 15))
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
