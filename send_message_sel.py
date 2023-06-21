@@ -223,6 +223,7 @@ if __name__ == "__main__":
     def start_insta_session():
         try:
             bot.close()
+            bot = None
         except:
             ...
         global try_count
@@ -272,6 +273,7 @@ if __name__ == "__main__":
                 sent = bot.send_message(user, message)
                 if sent == 'error':
                     bot.close()
+                    bot = None
                     time.sleep(random.uniform(60, 80)*30)
                     bot = start_insta_session()
                 else:
@@ -281,6 +283,7 @@ if __name__ == "__main__":
                 
         try:
             bot.close()
+            bot = None
         except:
             ...
             
