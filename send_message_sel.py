@@ -172,13 +172,9 @@ class InstagramBot:
                             btn.click()
                             break
                         except Exception as e:
-                            try:
-                                user_select = user_pop.find_elements(By.XPATH, "//svg[@aria-label='Toggle selection']/parent::node()")[0].click()
-                                break
-                            except:
-                                 print(e)
-                                 print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                                 return 'error'
+                            print(e)
+                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
