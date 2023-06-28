@@ -169,7 +169,7 @@ class InstagramBot:
                     if usernames in btn.text:
                         time.sleep(random.uniform(2, 5))'''
                 try:
-                     user_select[0].find_element(By.XPATH, "/div[1]/div/div/div[3]/div/svg[@aria-label='Toggle selection']").click()
+                     self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[3]/div/div/div[1]/div[1]/div/div/div[3]/div/svg").click()
                     #btn.click()
                      #break
                 except Exception as e:
