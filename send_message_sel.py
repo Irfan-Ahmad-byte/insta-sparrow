@@ -169,7 +169,7 @@ class InstagramBot:
                     if usernames in btn.text:
                         time.sleep(random.uniform(2, 5))'''
                 try:
-                     user_select.find_elements(By.TAG_NAME, "//div")[0].click()
+                     user_select.find_elements(By.TAG_NAME, "div")[-1].click()
                     #btn.click()
                      #break
                 except Exception as e:
