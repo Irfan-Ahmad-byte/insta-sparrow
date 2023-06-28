@@ -173,7 +173,8 @@ class InstagramBot:
                             break
                         except Exception as e:
                             try:
-                                user_select = user_pop.find_elements(By.XPATH, "//svg[@aria-label='Toggle selection']")[0].click()
+                                user_select = user_pop.find_elements(By.XPATH, "//svg[@aria-label='Toggle selection']/parent::node()")[0].click()
+                                break
                             except:
                                  print(e)
                                  print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
