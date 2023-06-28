@@ -171,7 +171,7 @@ class InstagramBot:
                 try:
                      user_select[0].click()
                     #btn.click()
-                     break
+                     #break
                 except Exception as e:
                      print(e)
                      print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
