@@ -164,12 +164,12 @@ class InstagramBot:
             queryBox.send_keys(usernames)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
-                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']//parent::node()")
                 '''for btn in user_select:
                     if usernames in btn.text:
                         time.sleep(random.uniform(2, 5))'''
                 try:
-                     user_select[0].find_elements(By.TAG_NAME, "div")[0].click()
+                     user_select[0].click()
                     #btn.click()
                      #break
                 except Exception as e:
