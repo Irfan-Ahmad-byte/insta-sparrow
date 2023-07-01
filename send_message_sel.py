@@ -213,7 +213,7 @@ class InstagramBot:
                 ActionChains(self.driver)\
                     .move_to_element(next_btn)\
                     .pause(random.uniform(1, 5))\
-                    .click(next_btn)\
+                    .click()\
                     .perform()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
