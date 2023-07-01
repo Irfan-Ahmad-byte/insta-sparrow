@@ -109,11 +109,8 @@ class InstagramBot:
             notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
             for btn in notification_btns:
                 if btn.text == 'Not Now':
-                    ActionChains(self.driver)\
-                        .move_to_element(btn)\
-                        .pause(random.uniform(1, 5))\
-                        .click()\
-                        .perform()
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
                     break
         except:
             print("Notification popup not present.")
@@ -123,11 +120,8 @@ class InstagramBot:
             send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
-                    ActionChains(self.driver)\
-                        .move_to_element(btn)\
-                        .pause(random.uniform(1, 5))\
-                        .click()\
-                        .perform()
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
                     break
         except:
             print("send_msg_btn not present.")
@@ -180,11 +174,8 @@ class InstagramBot:
                     if usernames in btn.text:
                         another_btn = btn.find_elements(By.TAG_NAME, "div")
                         try:
-                            ActionChains(self.driver)\
-                                .move_to_element(another_btn[-1])\
-                                .pause(random.uniform(1, 5))\
-                                .click(another_btn[-1])\
-                                .perform()
+                            ActionChains(self.driver).move_to_element(btn).perform()
+                            ActionChains(self.driver).click(btn).perform()
                              #btn.click()
                             break
                         except Exception as e:
@@ -201,21 +192,15 @@ class InstagramBot:
         try:
             for btn in next_btn:
                 if btn.text == 'Chat' or btn.text == 'Next':
-                    ActionChains(self.driver)\
-                        .move_to_element(btn)\
-                        .pause(random.uniform(1, 5))\
-                        .click(btn)\
-                        .perform()
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
                     break
         except:
             try:
                 #user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
                 next_btn = user_pop.find_element(By.CLASS_NAME, next_btn_class)
-                ActionChains(self.driver)\
-                    .move_to_element(next_btn)\
-                    .pause(random.uniform(1, 5))\
-                    .click()\
-                    .perform()
+                ActionChains(self.driver).move_to_element(next_btn).perform()
+                ActionChains(self.driver).click(next_btn).perform()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
