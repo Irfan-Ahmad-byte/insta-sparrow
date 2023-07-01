@@ -133,6 +133,7 @@ class InstagramBot:
             print("send_msg_btn not present.")
             
         time.sleep(20)
+        user_pop = None
         if isinstance(usernames, list):
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
@@ -194,7 +195,6 @@ class InstagramBot:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
                         
-        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
         next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
         time.sleep(random.randint(20, 30))
         try:
