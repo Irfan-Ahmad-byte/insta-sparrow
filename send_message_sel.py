@@ -175,7 +175,7 @@ class InstagramBot:
                 queryBox.send_keys(u)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
-                user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if usernames in btn.text:
                         try:
