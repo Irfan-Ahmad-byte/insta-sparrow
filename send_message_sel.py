@@ -178,11 +178,12 @@ class InstagramBot:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
                 for btn in user_select:
                     if usernames in btn.text:
+                        another_btn = btn.find_elements(By.TAG_NAME, "div")
                         try:
                             ActionChains(self.driver)\
-                                .move_to_element(user_select)\
+                                .move_to_element(another_btn[-1])\
                                 .pause(random.uniform(1, 5))\
-                                .click(user_select)\
+                                .click(another_btn[-1])\
                                 .perform()
                              #btn.click()
                             break
