@@ -183,7 +183,7 @@ class InstagramBot:
                      ActionChains(self.driver)\
                         .move_to_element(user_select)\
                         .pause(random.uniform(1, 5))\
-                        .click()\
+                        .click(user_select)\
                         .perform()
                     #btn.click()
                      #break
@@ -204,16 +204,17 @@ class InstagramBot:
                     ActionChains(self.driver)\
                         .move_to_element(btn)\
                         .pause(random.uniform(1, 5))\
-                        .click()\
+                        .click(btn)\
                         .perform()
                     break
         except:
             try:
                 #user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+                next_btn = user_pop.find_element(By.CLASS_NAME, next_btn_class)
                 ActionChains(self.driver)\
-                    .move_to_element(user_pop.find_element(By.CLASS_NAME, next_btn_class))\
+                    .move_to_element(next_btn)\
                     .pause(random.uniform(1, 5))\
-                    .click()\
+                    .click(next_btn)\
                     .perform()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
