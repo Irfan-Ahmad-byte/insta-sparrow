@@ -171,7 +171,8 @@ class InstagramBot:
                 print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
                 
-            queryBox.send_keys(usernames)
+            for u in usernames:
+                queryBox.send_keys(u)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
                 user_select = user_pop.find_element(By.XPATH, "//div[@role='button']")
