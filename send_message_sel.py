@@ -174,9 +174,9 @@ class InstagramBot:
                     if usernames in btn.text:
                         another_btn = btn.find_elements(By.TAG_NAME, "div")
                         try:
-                            ActionChains(self.driver).move_to_element(btn).perform()
-                            ActionChains(self.driver).click(btn).perform()
-                             #btn.click()
+                            #ActionChains(self.driver).move_to_element(btn).perform()
+                            #ActionChains(self.driver).click(btn).perform()
+                            btn.click()
                             break
                         except Exception as e:
                             print(e)
@@ -192,8 +192,9 @@ class InstagramBot:
         try:
             for btn in next_btn:
                 if btn.text == 'Chat' or btn.text == 'Next':
-                    ActionChains(self.driver).move_to_element(btn).perform()
-                    ActionChains(self.driver).click(btn).perform()
+                    #ActionChains(self.driver).move_to_element(btn).perform()
+                    #ActionChains(self.driver).click(btn).perform()
+                    btn.click()
                     break
         except:
             try:
