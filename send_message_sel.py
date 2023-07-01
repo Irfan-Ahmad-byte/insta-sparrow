@@ -11,6 +11,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 
 
 def is_private(username):
@@ -107,7 +109,11 @@ class InstagramBot:
             notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
             for btn in notification_btns:
                 if btn.text == 'Not Now':
-                    btn.click()
+                    ActionChains(self.driver)\
+                        .move_to_element(btn)\
+                        .pause(random.uniform(1, 5))\
+                        .click()\
+                        .perform()
                     break
         except:
             print("Notification popup not present.")
@@ -117,8 +123,11 @@ class InstagramBot:
             send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
-                    time.sleep(random.uniform(1, 5))
-                    btn.click()
+                    ActionChains(self.driver)\
+                        .move_to_element(btn)\
+                        .pause(random.uniform(1, 5))\
+                        .click()\
+                        .perform()
                     break
         except:
             print("send_msg_btn not present.")
@@ -169,7 +178,11 @@ class InstagramBot:
                     if usernames in btn.text:
                         time.sleep(random.uniform(2, 5))'''
                 try:
-                     user_select.click()
+                     ActionChains(self.driver)\
+                        .move_to_element(user_select)\
+                        .pause(random.uniform(1, 5))\
+                        .click()\
+                        .perform()
                     #btn.click()
                      #break
                 except Exception as e:
@@ -187,12 +200,20 @@ class InstagramBot:
         try:
             for btn in next_btn:
                 if btn.text == 'Chat' or btn.text == 'Next':
-                    time.sleep(random.randint(5, 10))
-                    btn.click()
+                    ActionChains(self.driver)\
+                        .move_to_element(btn)\
+                        .pause(random.uniform(1, 5))\
+                        .click()\
+                        .perform()
                     break
         except:
             try:
-                user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+                #user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+                ActionChains(self.driver)\
+                    .move_to_element(user_pop.find_element(By.CLASS_NAME, next_btn_class))\
+                    .pause(random.uniform(1, 5))\
+                    .click()\
+                    .perform()
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
