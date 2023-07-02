@@ -175,8 +175,8 @@ class InstagramBot:
                     if usernames in btn.text:
                         another_btn = btn.find_elements(By.TAG_NAME, "div")
                         try:
-                            ActionChains(self.driver).move_to_element(btn).perform()
-                            ActionChains(self.driver).click(btn).perform()
+                            ActionChains(self.driver).move_to_element(another_btn[-1]).perform()
+                            ActionChains(self.driver).click(another_btn[[-1]).perform()
                             #btn.click()
                             break
                         except Exception as e:
