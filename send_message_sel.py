@@ -173,6 +173,7 @@ class InstagramBot:
                 
                 try:
                     ActionChains(self.driver).move_to_element(user_select[0]).perform()
+                    time.sleep(5)
                     another_btn = btn.find_element(By.CLASS_NAME, "x1mq3mr6")
                     ActionChains(self.driver).click(another_btn).perform()
                     #btn.click()
