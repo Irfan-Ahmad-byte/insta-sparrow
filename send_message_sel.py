@@ -170,18 +170,17 @@ class InstagramBot:
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
                 user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-                for btn in user_select:
-                    if usernames in btn.text:
-                        try:
-                            ActionChains(self.driver).move_to_element(btn).perform()
-                            another_btn = btn.find_element(By.CLASS_NAME, "x1mq3mr6")
-                            ActionChains(self.driver).click(another_btn).perform()
-                            #btn.click()
-                            break
-                        except Exception as e:
-                            print(e)
-                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                            return 'error'
+                
+                try:
+                    ActionChains(self.driver).move_to_element(user_select[0]).perform()
+                    another_btn = btn.find_element(By.CLASS_NAME, "x1mq3mr6")
+                    ActionChains(self.driver).click(another_btn).perform()
+                    #btn.click()
+                    break
+                except Exception as e:
+                    print(e)
+                    print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                    return 'error'
                 
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
