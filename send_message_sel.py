@@ -176,7 +176,7 @@ class InstagramBot:
                     another_btn = btn.find_element(By.CLASS_NAME, "x1mq3mr6")
                     ActionChains(self.driver).click(another_btn).perform()
                     #btn.click()
-                    break
+                    #break
                 except Exception as e:
                     print(e)
                     print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
