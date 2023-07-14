@@ -303,11 +303,14 @@ if __name__ == "__main__":
         # Send messages to the selected usernames
         for user in subset:
             if user not in msg_sent_to:
-                sent = bot.send_message(user, message)
+                try:
+                    sent = bot.send_message(user, message)
+                except:
+                    sent = 'error'
                 if sent == 'error':
                     bot.close()
                     bot = None
-                    time.sleep(random.uniform(60, 80)*30)
+                    time.sleep(random.uniform(3600, 10800))
                     bot = start_insta_session()
                 else:
                     msg_sent_to.append(user)
