@@ -176,7 +176,7 @@ class InstagramBot:
                 try:
                     ActionChains(self.driver).move_to_element(user_select[0]).perform()
                     time.sleep(5)
-                    another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[3]/div/div/div[1]/div[2]")
+                    another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]")
                     ActionChains(self.driver).click(another_btn).perform()
                     #btn.click()
                     #break
