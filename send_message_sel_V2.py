@@ -81,87 +81,105 @@ class InstagramBot:
         time.sleep(random.randint(5, 10))
         user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
         next_btn = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-        for btn in next_btn:
-            if btn.text == 'Chat' or btn.text == 'Next':
-                btn.click()
-                break
+        time.sleep(random.randint(20, 30))
+        try:
+            for btn in next_btn:
+                if btn.text == 'Chat' or btn.text == 'Next':
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
+                    #btn.click()
+                    break
+        except:
+            try:
+                #user_pop.find_element(By.CLASS_NAME, next_btn_class).click()
+                next_btn = user_pop.find_element(By.CLASS_NAME, next_btn_class)
+                ActionChains(self.driver).move_to_element(next_btn).perform()
+                ActionChains(self.driver).click(next_btn).perform()
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [NExt btn error] /=/=/=/==/=/=/==/==/=/=')
+                return 'error'
                 
-        time.sleep(20)
+        time.sleep(random.uniform(8, 15))
         message_area = self.driver.find_element(By.XPATH, "//div[@role='textbox' and @aria-label='Message' and @aria-describedby='Message']")
         message_area.send_keys(message)
         message_area.send_keys(Keys.ENTER)
-        print('Message has been sent successfully to:', usernames)
-        save_file([(usernames)], 'msg_sent_users.csv')
-        return True
+        print('Message has been sent successfully to : ', usernames)
+        try:
+            save_file([(usr_nm)  for usr_nm in usernames], 'msg_sent_users.csv')
+        except:
+            save_file([(usernames)], 'msg_sent_users.csv')
+        #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
+        return 'success'
     
     def send_message(self, usernames, message, group=False):
-        
-        new_msg_btn = "x1i10hfl x6umtig x1b1mbwd xaqea5y xav7gou x9f619 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz x6s0dn4 xjbqb8w x1ejq31n xd10rxx x1sy0etr x17r0tee x1ypdohk x78zum5 xl56j7k x1y1aw1k x1sxyh0 xwib8y2 xurb0ha"
-        
+    
         user_class = "x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x87ps6o x1lku1pv x1a2a7pz x1dm5mii x16mil14 xiojian x1yutycm x1lliihq x193iq5w xh8yej3"
         
         next_btn_class = 'x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w x972fbf xcfux6l x1qhh985 xm0m39n xdl72j9 x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x18d9i69 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 xjyslct x1lq5wgf xgqcy7u x30kzoy x9jhf4c x1ejq31n xd10rxx x1sy0etr x17r0tee x9f619 x9bdzbf x1ypdohk x78zum5 x1i0vuye x1f6kntn xwhw2v2 xl56j7k x17ydfre x1n2onr6 x2b8uid xlyipyv x87ps6o x14atkfc x1d5wrs8 xn3w4p2 x5ib6vp xc73u3c x1tu34mt xzloghq'
         
-        
         self.driver.get("https://www.instagram.com/direct/new/?hl=en")
-        time.sleep(30)
+        time.sleep(random.uniform(7, 15))
         try:
             notification_popup = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             notification_btns = notification_popup.find_elements(By.TAG_NAME, "button")
             for btn in notification_btns:
                 if btn.text == 'Not Now':
-                    btn.click()
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
                     break
         except:
             print("Notification popup not present.")
         
-        time.sleep(10)
         
         try:
             send_msg_btn = self.driver.find_elements(By.XPATH, "//div[@role='button']")
             for btn in send_msg_btn:
                 if btn.text == 'Send message':
-                    btn.click()
+                    ActionChains(self.driver).move_to_element(btn).perform()
+                    ActionChains(self.driver).click(btn).perform()
                     break
         except:
             print("send_msg_btn not present.")
             
-        time.sleep(10)
-
-        user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
-        queryBox = user_pop.find_element(By.NAME, "queryBox")
+        time.sleep(20)
+        user_pop = None
         
         task_done = False
 
         if isinstance(usernames, list):
+            user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+            queryBox = user_pop.find_element(By.NAME, "queryBox")
             for i, username in enumerate(usernames):
                 time.sleep(random.randint(5, 10))
                 if group:
                     for k in username:
                         queryBox.send_keys(k)
                     time.sleep(1)
-                    user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-                    for btn in user_select:
-                        if username in btn.text:
-                            time.sleep(random.uniform(8, 15))
-                            try:
-                                btn.click()
-                                break
-                            except Exception as e:
-                                try:
-                                    user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
-                                except:
-                                    try:
-                                        user_select = user_pop.find_elements(By.CLASS_NAME, user_class)[0].click()
-                                    except:
-                                        print(e)
-                                        print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                                        return 'error'
+                    user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
+                    try:
+                        user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                        
+                        try:
+                            ActionChains(self.driver).move_to_element(user_select[0]).perform()
+                            time.sleep(5)
+                            another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]")
+                            ActionChains(self.driver).click(another_btn).perform()
+                            #btn.click()
+                            #break
+                        except Exception as e:
+                            print(e)
+                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
+                        
+                    except:
+                        print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
+                        return 'error'
+                
                 else:
                     time.sleep(random.randint(10, 40))
                     if i>0:
                         try:
-                            new_message_btns = self.driver.find_element(By.CLASS_NAME, new_msg_btn).click()
+                            new_message_btns = self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div').click()
                         except:
                             print(f'/=/=/=/==/=/=/==/==/=/= [new message btn error] /=/=/=/==/=/=/==/==/=/=')
                             return 'error'
@@ -170,36 +188,60 @@ class InstagramBot:
                         queryBox = self.driver.find_element(By.NAME, "queryBox")
                     except Exception as e:
                         self.close()
-                        raise e
+                        print(f'/=/=/=/==/=/=/==/==/=/= [Query Box NOt found.] /=/=/=/==/=/=/==/==/=/=')
+                        return 'error'
+                        
                     for k in username:
                         queryBox.send_keys(k)
                     time.sleep(1)
-                    user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
-                    for btn in user_select:
-                        if username in btn.text:
-                            time.sleep(random.uniform(8, 15))
-                            try:
-                                btn.click()
-                                break
-                            except Exception as e:
-                                try:
-                                    user_select = user_pop.find_elements(By.XPATH, "//div[@aria-label='Toggle selection']")[0].click()
-                                except:
-                                    try:
-                                        user_select = user_pop.find_elements(By.CLASS_NAME, user_class)[0].click()
-                                    except:
-                                        print(e)
-                                        print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
-                                        return 'error'
+                    try:
+                        user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                        
+                        try:
+                            ActionChains(self.driver).move_to_element(user_select[0]).perform()
+                            time.sleep(5)
+                            another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]")
+                            ActionChains(self.driver).click(another_btn).perform()
+                            #btn.click()
+                            #break
+                        except Exception as e:
+                            print(e)
+                            print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                            return 'error'
+                        
+                    except:
+                        print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
+                        return 'error'
                                         
-                    task_done = self.send(username, message)
+                    task_done = self.send([username], message)
 
         else:
-            queryBox.send_keys(usernames)
-            time.sleep(random.randint(5, 10))
+            try:
+                queryBox = self.driver.find_element(By.NAME, "queryBox")
+            except:
+                print(f'/=/=/=/==/=/=/==/==/=/= [Query box not found.] /=/=/=/==/=/=/==/==/=/=')
+                return 'error'
+                
+            for u in usernames:
+                queryBox.send_keys(u)
+                
+            time.sleep(6)
             user_pop = self.driver.find_element(By.XPATH, "//div[@role='dialog']")
             try:
-                user_select = user_pop.find_element(By.XPATH, "//div[@aria-label='Toggle selection']").click()
+                user_select = user_pop.find_elements(By.XPATH, "//div[@role='button']")
+                
+                try:
+                    ActionChains(self.driver).move_to_element(user_select[0]).perform()
+                    time.sleep(5)
+                    another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]")
+                    ActionChains(self.driver).click(another_btn).perform()
+                    #btn.click()
+                    #break
+                except Exception as e:
+                    print(e)
+                    print(f'/=/=/=/==/=/=/==/==/=/= [User Click box not found.] /=/=/=/==/=/=/==/==/=/=')
+                    return 'error'
+                
             except:
                 print(f'/=/=/=/==/=/=/==/==/=/= [User {usernames} does not exist.] /=/=/=/==/=/=/==/==/=/=')
                 return 'error'
