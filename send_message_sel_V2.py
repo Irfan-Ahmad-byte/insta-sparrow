@@ -109,7 +109,7 @@ class InstagramBot:
         except:
             save_file([(usernames)], 'msg_sent_users.csv')
         #self.driver.find_element(By.XPATH, "//div[text()='Send']").click()
-        return 'success'
+        return True
     
     def send_message(self, usernames, message, group=False):
     
@@ -179,7 +179,12 @@ class InstagramBot:
                     time.sleep(random.randint(10, 40))
                     if i>0:
                         try:
-                            new_message_btns = self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div').click()
+                            new_message_btn = self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/div/div/div/div[1]/div/div[1]/div/div[1]/div[2]/div/div')
+                            
+                            ActionChains(self.driver).move_to_element(new_message_btn).perform()
+                            time.sleep(5)
+                            ActionChains(self.driver).click(new_message_btn).perform()
+                            
                         except:
                             print(f'/=/=/=/==/=/=/==/==/=/= [new message btn error] /=/=/=/==/=/=/==/==/=/=')
                             return 'error'
@@ -214,6 +219,8 @@ class InstagramBot:
                         return 'error'
                                         
                     task_done = self.send([username], message)
+                    if not task_done:
+                        return 'error'
 
         else:
             try:
@@ -249,8 +256,9 @@ class InstagramBot:
         if task_done:
             return 'success'
                         
-        self.send(usernames, message)
-        time.sleep(random.uniform(2, 3))
+        task_done = self.send(usernames, message)
+        if not task_done:
+            return 'error'
         return 'success'
 
     def close(self):
@@ -260,8 +268,6 @@ def save_file(data, filename):
     with open(filename, 'a') as fl:
         writer = csv.writer(fl)
         writer.writerows(data)
-
-
 
 if __name__ == "__main__":
     bot = None
@@ -275,85 +281,93 @@ if __name__ == "__main__":
     # Register the signal handler for SIGINT
     signal.signal(signal.SIGINT, signal_handler)
 
-    usernames = []
-    with open('followers_insta.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            usernames.append(row['username'])
-
     u4 = 'knightkingdeliverysw'
-    pass4 = 'AuCl3AR9(('
-
+    pass4 = 'AuCl3AR9((@'
+    
+    # Set the message to send
     message = "Knight King Delivery delivers to age verified 21+ adults within a 75 mile radius from our headquarters on 1101 Connecticut Ave NW, Washington DC, 20036. Medical Card not required. Delivery fees are displayed on our website Knightkingdelivery.com, residents outside of Washington DC will pay more than $10 for delivery! Pickup is not an option, we offer same day and preorder delivery only with competitive pricing including these fees. Shop 90+ options for same day delivery @ https://bit.ly/shopkkd23 from 9:00AM to 12:00AM 7 days a week!"
 
     username = u4
     password = pass4
-
+    
     target_date = datetime(2023, 5, 30, 11, 0, 0)  # Target date and time
-
+    
     try_count = 1
-
-    msg_sent_to = []
-    with open('msg_sent_users.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            msg_sent_to.append(row['username'])
-
-    def start_insta_session(try_count=1):
-        if try_count > 50:
-            print(f"============= [Reached maximum login attempts. Exiting.] =============")
-            return 'error'
-
+    
+    def start_insta_session():
+        try:
+            bot.close()
+            bot = None
+        except:
+            ...
+        global try_count
         bot = InstagramBot(username, password)
         login_re = bot.login()
-        if login_re == 'error':
-            time.sleep(random.uniform(3, 4) * 3600)
-            return start_insta_session(try_count + 1)
+        if login_re=='error':
+            time.sleep(random.uniform(3,4)*3600)
+            try_count += 1
+            if try_count>50:
+                return login_re
+            print(f'============= [trying to login again. Login attempt: {try_count}] =============')
+            start_insta_session()
         return bot
-
-
-    while True:
-        bot = start_insta_session()
         
+    while True:
+        # Load the usernames from the file
+        usernames = []
+        with open('followers_insta.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                usernames.append(row['username'])
+        
+        msg_sent_to = []
+        with open('msg_sent_users.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                msg_sent_to.append(row['username'])
+            
+        usernames = [user for user in usernames if user not in msg_sent_to]
         if len(usernames)<=0:
-            print('+++++++++++++++ [Script ended successfully] +++++++++++++++')
             break
             
-        if isinstance(bot, str) and bot == 'error':
+        bot = start_insta_session()
+        
+        if isinstance(bot, str) and bot=='error':
             print('******************* [ Something has gone wrong during login. So, exiting now.] *******************')
-            save_file([(usr_nm) for usr_nm in msg_sent_to], 'msg_sent_users.csv')
+            save_file([(usr_nm)  for usr_nm in msg_sent_to], 'msg_sent_users.csv')
             break
-        else:
-            ...
-             
-        subset_size = random.randint(2, 6)
-        subset = [random.choice(usernames) for _ in range(subset_size)]
 
-        # Remove the selected usernames from the list
-        usernames = [user for user in usernames if user not in subset]
+        # Select a random subset of usernames to send messages to
+        subset_size = random.randint(5, 8)
+        subset = [random.choice(usernames) for _ in range(subset_size)]
 
         # Send messages to the selected usernames
         for user in subset:
             if user in msg_sent_to:
                 subset.remove(user)
             else:
-                msg_sent_to.append(user)
                 ...
-
-        bot.send_message(subset, message)
-
-        save_file([(usr_nm) for usr_nm in msg_sent_to], 'msg_sent_users.csv')
-
-
-        interval_between_sets = random.randint(2, 3) * 3600  # Random interval of 2-3 hours between sets
+                
+        try:
+            sent = bot.send_message(subset, message)
+        except:
+            sent = 'error'
+            
+        if sent == 'error':
+            ...
+        else:
+            for user in subset:
+                msg_sent_to.append(user)
+                
+        try:
+            bot.close()
+        except:
+            ...
+            
+        bot = None
+            
+        interval_between_sets = random.uniform(1,2) * 3600  # Random interval of 2-3 hours between sets
         # Wait for the random interval before starting the next set
         time.sleep(interval_between_sets)
-
-        # Save the session_id
-        session_id = bot.driver.session_id
-        with open("session_id.txt", "w") as f:
-            f.write(session_id)
-
-        bot.close()
-
+        
 
