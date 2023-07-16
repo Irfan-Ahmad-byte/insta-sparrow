@@ -176,7 +176,7 @@ class InstagramBot:
                 try:
                     ActionChains(self.driver).move_to_element(user_select[0]).perform()
                     time.sleep(5)
-                    another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]")
+                    another_btn = self.driver.find_element(By.XPATH, "/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]") '/html/body/div[2]/div/div/div[3]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[1]/div/div[3]/div/div/div[1]/div[2]'
                     ActionChains(self.driver).click(another_btn).perform()
                     #btn.click()
                     #break
@@ -308,7 +308,10 @@ if __name__ == "__main__":
                 except:
                     sent = 'error'
                 if sent == 'error':
-                    bot.close()
+                    try:
+                        bot.close()
+                    except:
+                        ...
                     bot = None
                     time.sleep(random.uniform(3600, 10800))
                     bot = start_insta_session()
@@ -319,9 +322,9 @@ if __name__ == "__main__":
                 
         try:
             bot.close()
-            bot = None
         except:
             ...
+        bot = None
             
         interval_between_sets = random.uniform(1,2) * 3600  # Random interval of 2-3 hours between sets
         # Wait for the random interval before starting the next set
