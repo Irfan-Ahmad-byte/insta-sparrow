@@ -11,18 +11,7 @@ batch_size = 500
 min_delay = 1.5 * 24 * 60 * 60  # 1.5 days in seconds
 max_delay = 2.5 * 24 * 60 * 60  # 2.5 days in seconds
 
-u1 = 'knightkingdelivery_dc'
-pass1= 'AuCl3AR9(#'
 
-u2 = 'computertechservice1'
-pass2 = '@Computer1122'
-
-
-u4 = 'knightkingdeliverysw'
-pass4 = 'AuCl3AR9(#'
-
-u5 = 'devirfan.insta'
-pass5 = 'IL@tmys@lf1@insta'
 
 username= u4
 session = f'session-{username}'
@@ -98,7 +87,7 @@ def get_followers_with_retry(followers_iterator:list, start_index=0, max_followe
 
     return followers
     
-competitors = ['boxboys', 'jawigrown2', 'dcweedevents_', 'dcweedeventsss', 'welit_dc_', 'welit18', 'welittogetherdc', 'highvoltage_71', 'weedwookie', 'knightkingdelivery_dc']
+competitors = ["competitor1", "competitor2", "competitor3"]
 
 
 followers = []

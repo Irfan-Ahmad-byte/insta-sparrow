@@ -5,20 +5,20 @@ import csv
 
 file_name = 'followers_insta.csv'
 
-u1 = 'knightkingdelivery_dc'
-pass1= 'AuCl3AR9(('
+u1 = ''
+pass1= ''
 
-u2 = 'computertechservice1'
-pass2 = '@Computer1122'
+u2 = ''
+pass2 = ''
 
-u3 = 'levajim928'
-pass3 = 'levajim@928'
+u3 = ''
+pass3 = ''
 
-u4 = 'knightkingdeliverysw'
-pass4 = 'AuCl3AR9(@'
+u4 = ''
+pass4 = ''
 
-u5 = 'devirfan.insta'
-pass5 = 'IL@tmys@lf1@insta'
+u5 = ''
+pass5 = ''
 
 session = f'session-{u4}'
 
